@@ -14,7 +14,7 @@ GIS_LAYER_URL = (
     "Florida_Statewide_Cadastral/FeatureServer/0"
 )
 GIS_QUERY_URL = f"{GIS_LAYER_URL}/query"
-JACKSON_DOR_COUNTY_NUMBER = 32
+JACKSON_DOR_COUNTY_NUMBER = 42
 SQUARE_METERS_PER_ACRE = Decimal("4046.8564224")
 
 
@@ -104,12 +104,7 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
 def fetch_gis_parcel(parcel_id: str, *, timeout_seconds: int = 120) -> GISParcelRecord:
     """Retrieve one Jackson County parcel polygon from the official DOR layer."""
     compact = parcel_id.replace("-", "")
-    candidates = (parcel_id, compact)
-    quoted = ",".join(f"'{candidate}'" for candidate in candidates)
-    where = (
-        f"CO_NO={JACKSON_DOR_COUNTY_NUMBER} AND ("
-        f"PARCELNO IN ({quoted}) OR PARCEL_ID IN ({quoted}) OR PARCEL_ID_ IN ({quoted}))"
-    )
+    where = f"CO_NO={JACKSON_DOR_COUNTY_NUMBER} AND PARCELNO='{compact}'"
     params = {
         "where": where,
         "outFields": (
