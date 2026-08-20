@@ -10,7 +10,13 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Cait Kuentzel" }]
-dependencies = []
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "playwright>=1.46",
+]
+
+[project.scripts]
+farm2027-scout = "farm2027_scout.cli:main"
 
 [project.optional-dependencies]
 dev = [
@@ -23,8 +29,8 @@ packages = ["src/farm2027_scout"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["live: accesses the live public auction website"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-
