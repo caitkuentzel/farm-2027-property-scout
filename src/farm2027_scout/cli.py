@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
+from farm2027_scout.research_queue import research_inventory
 
 FIELDS = (
     "auction_date",
@@ -27,12 +28,34 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--auction-date", help="MM/DD/YYYY; omit for the current calendar")
     parser.add_argument("--format", choices=("json", "csv"), default="json")
     parser.add_argument("--output", type=Path, help="Write output to a file instead of stdout")
+    parser.add_argument(
+        "--include-qpublic",
+        action="store_true",
+        help="Enrich every auction parcel through the rate-safe qPublic queue",
+    )
+    parser.add_argument(
+        "--delay-seconds",
+        type=float,
+        default=20,
+        help="Seconds to wait between qPublic parcels (default: 20)",
+    )
     return parser
 
 
 def main() -> int:
     args = _parser().parse_args()
-    rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
+    if args.include_qpublic:
+        if args.format != "json":
+            raise SystemExit("--include-qpublic currently supports JSON output only")
+        if not args.output:
+            raise SystemExit("--include-qpublic requires --output for resumable checkpoints")
+        rows = research_inventory(
+            args.auction_date,
+            args.output,
+            delay_seconds=args.delay_seconds,
+        )
+    else:
+        rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
     if args.format == "json":
         rendered = json.dumps(rows, indent=2)
     else:
@@ -52,4 +75,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
