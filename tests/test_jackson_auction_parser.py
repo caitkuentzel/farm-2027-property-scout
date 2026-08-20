@@ -2,7 +2,10 @@ from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 
-from farm2027_scout.adapters.jackson_county.auction import parse_auction_detail
+from farm2027_scout.adapters.jackson_county.auction import (
+    parse_auction_detail,
+    parse_auction_preview,
+)
 
 
 def test_parse_auction_detail() -> None:
@@ -27,3 +30,13 @@ def test_missing_fields_remain_missing() -> None:
     assert record.opening_bid is None
     assert record.assessed_value is None
 
+
+def test_parse_preview_with_multiple_records() -> None:
+    detail = Path("tests/fixtures/jackson_auction_detail.html").read_text()
+    html = detail.replace("</body>", detail.replace("2026-00123", "2026-00456") + "</body>")
+
+    records = parse_auction_preview(html, "https://example.test/preview")
+
+    assert len(records) == 2
+    assert records[0].case_number == "2026-00123"
+    assert records[1].case_number == "2026-00456"
