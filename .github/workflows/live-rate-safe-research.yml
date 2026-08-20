@@ -31,6 +31,7 @@ jobs:
           farm2027-scout \
             --auction-date "$AUCTION_DATE" \
             --include-qpublic \
+            --screen \
             --delay-seconds 20 \
             --output full-property-research.json
       - name: Require all ten current parcels and show output
@@ -52,8 +53,16 @@ jobs:
               "extra_features_value",
               "auction_assessed_value",
               "qpublic_assessed_value",
+              "screening_decision",
+              "screening_score",
+              "acreage_status",
           )
           assert all(row[field] is not None for row in rows for field in required), rows
+          decisions = {decision: 0 for decision in ("KEEP", "REVIEW", "KILL")}
+          for row in rows:
+              decisions[row["screening_decision"]] += 1
+          assert decisions == {"KEEP": 3, "REVIEW": 4, "KILL": 3}, decisions
+          print(json.dumps(decisions, indent=2))
           print(json.dumps(rows, indent=2))
           PY
       - uses: actions/upload-artifact@v4
