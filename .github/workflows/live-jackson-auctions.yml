@@ -36,6 +36,17 @@ jobs:
 
           records = json.loads(Path("jackson-auctions.json").read_text())
           assert records, "No auction detail pages were discovered"
+          required = (
+              "auction_date",
+              "case_number",
+              "parcel_id",
+              "property_address",
+              "opening_bid",
+              "assessed_value",
+          )
+          assert all(
+              item[field] for item in records for field in required
+          ), "A required field was not parsed"
           assert all(item["parcel_id"] for item in records), "A parcel ID was not parsed"
           assert all(item["opening_bid"] for item in records), "An opening bid was not parsed"
           print(json.dumps(records, indent=2))
