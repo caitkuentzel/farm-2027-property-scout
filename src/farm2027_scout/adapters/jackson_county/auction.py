@@ -18,6 +18,7 @@ CALENDAR_URL = urljoin(BASE_URL, "index.cfm?zaction=USER&zmethod=CALENDAR")
 LABELS = {
     "auction_date": ("Auction Starts", "Auction Date", "Sale Date"),
     "case_number": ("Case #", "Case Number", "Case No."),
+    "certificate_number": ("Certificate #", "Certificate Number", "Certificate No."),
     "parcel_id": ("Parcel ID", "Parcel #", "Parcel Number"),
     "property_address": ("Property Address", "Property Location", "Location"),
     "opening_bid": ("Opening Bid", "Minimum Bid"),
@@ -92,8 +93,10 @@ def _detail_links(page: Page, auction_date: str | None) -> list[str]:
     else:
         page.goto(CALENDAR_URL, wait_until="domcontentloaded")
     page.wait_for_timeout(1500)
-    hrefs = page.locator("a[href*='zaction=auction'][href*='zmethod=details' i]").evaluate_all(
-        "els => els.map(el => el.href)"
+    hrefs = page.locator("a[href]").evaluate_all(
+        "els => els.map(el => el.href).filter(href => "
+        "href.toLowerCase().includes('zaction=auction') && "
+        "href.toLowerCase().includes('zmethod=details'))"
     )
     return list(dict.fromkeys(hrefs))
 
@@ -111,4 +114,3 @@ def fetch_inventory(auction_date: str | None = None, *, headless: bool = True) -
             records.append(parse_auction_detail(page.content(), page.url))
         browser.close()
     return records
-
