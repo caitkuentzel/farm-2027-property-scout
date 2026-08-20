@@ -42,6 +42,6 @@ jobs:
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: jackson-auctions-${{ inputs.auction_date }}
+          name: jackson-auctions-${{ inputs.auction_date || '08-25-2026' }}
           path: jackson-auctions.json
           if-no-files-found: error
