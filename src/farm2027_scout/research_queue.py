@@ -8,10 +8,12 @@ from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import Any
 
+from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
 from farm2027_scout.adapters.jackson_county.qpublic import PropertyRecord, fetch_property
 from farm2027_scout.models import AuctionRecord
 
 FetchProperty = Callable[[str], PropertyRecord]
+FetchInventory = Callable[[str | None], list[AuctionRecord]]
 Sleep = Callable[[float], None]
 
 
@@ -85,3 +87,29 @@ def research_properties(
                 sleep(backoff_seconds * (2**attempt))
 
     return list(completed.values())
+
+
+def research_inventory(
+    auction_date: str | None,
+    checkpoint_path: Path,
+    *,
+    inventory_fetch: FetchInventory = fetch_inventory,
+    property_fetch: FetchProperty = fetch_property,
+    sleep: Sleep = time.sleep,
+    delay_seconds: float = 15,
+    max_retries: int = 3,
+    backoff_seconds: float = 30,
+) -> list[dict[str, Any]]:
+    """Retrieve live auction parcels and enrich every parcel through the safe queue."""
+    auctions = inventory_fetch(auction_date)
+    if not auctions:
+        raise RuntimeError("Jackson County returned no auction inventory")
+    return research_properties(
+        auctions,
+        checkpoint_path,
+        fetch=property_fetch,
+        sleep=sleep,
+        delay_seconds=delay_seconds,
+        max_retries=max_retries,
+        backoff_seconds=backoff_seconds,
+    )
