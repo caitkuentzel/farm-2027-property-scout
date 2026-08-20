@@ -43,11 +43,30 @@ def test_only_keep_rows_receive_gis_verification() -> None:
 
 def test_ambiguous_gis_matches_are_rejected() -> None:
     payload = json.loads(Path("tests/fixtures/florida_gis_parcel.json").read_text())
-    payload["features"].append(payload["features"][0])
+    duplicate = json.loads(json.dumps(payload["features"][0]))
+    duplicate["attributes"]["PARCELNO"] = "DIFFERENT"
+    payload["features"].append(duplicate)
 
     try:
         parse_gis_response(payload, "A", "https://example.test")
     except RuntimeError as error:
-        assert "found 2" in str(error)
+        assert "multiple parcel IDs" in str(error)
     else:
         raise AssertionError("Ambiguous GIS response was accepted")
+
+
+def test_same_parcel_polygon_parts_are_combined() -> None:
+    payload = json.loads(Path("tests/fixtures/florida_gis_parcel.json").read_text())
+    payload["features"].append(json.loads(json.dumps(payload["features"][0])))
+
+    record = parse_gis_response(payload, "A", "https://example.test")
+
+    assert record.geometry_status == "MULTIPART_POLYGON_CONFIRMED"
+    assert str(record.geometry_acres) == "2.272"
+
+
+def test_missing_official_polygon_is_preserved() -> None:
+    record = parse_gis_response({"features": []}, "A", "https://example.test")
+
+    assert record.geometry_status == "NOT_FOUND_IN_DOR_LAYER"
+    assert record.geometry_acres is None
