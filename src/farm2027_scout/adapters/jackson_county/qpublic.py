@@ -54,7 +54,7 @@ class PropertyRecord:
 
 
 FIELD_ALIASES = {
-    "owner": ("owner", "owner name"),
+    "owner": ("owner", "owner name", "name"),
     "property_address": ("location address", "property address", "physical address"),
     "legal_description": ("brief tax description", "legal description"),
     "property_use": ("property use", "property use code", "class"),
@@ -92,7 +92,7 @@ def _text_field(text: str, aliases: tuple[str, ...]) -> str | None:
     stop = "|".join(re.escape(label) for label in sorted(labels, key=len, reverse=True))
     for label in aliases:
         match = re.search(
-            rf"(?is)\b{re.escape(label)}\s*:?\s*(.+?)(?=\s+(?:{stop})\s*:?|$)",
+            rf"(?is)\b{re.escape(label)}\b\s*:?\s*(.+?)(?=\s+(?:{stop})\b\s*:?|$)",
             text,
         )
         if match:
@@ -106,6 +106,12 @@ def _value(fields: dict[str, str], text: str, name: str) -> str | None:
         if normalized in fields:
             return fields[normalized]
     return _text_field(text, FIELD_ALIASES[name])
+
+
+def _without_note(value: str | None) -> str | None:
+    if not value:
+        return value
+    return _clean(re.split(r"\s*\(Note:", value, maxsplit=1, flags=re.I)[0])
 
 
 def _decimal(value: str | None) -> Decimal | None:
@@ -137,8 +143,8 @@ def parse_property_report(html: str, parcel_id: str, source_url: str) -> Propert
         parcel_id=parcel_id,
         owner=_value(fields, text, "owner"),
         property_address=_value(fields, text, "property_address"),
-        legal_description=_value(fields, text, "legal_description"),
-        property_use=property_use,
+        legal_description=_without_note(_value(fields, text, "legal_description")),
+        property_use=_without_note(property_use),
         acreage=_decimal(_value(fields, text, "acreage")),
         building_value=building_value,
         extra_features_value=extra_features_value,
@@ -173,4 +179,3 @@ def fetch_property(parcel_id: str, *, headless: bool = True) -> PropertyRecord:
         record = parse_property_report(page.content(), parcel_id, page.url)
         browser.close()
     return record
-
