@@ -23,15 +23,28 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          from farm2027_scout.adapters.jackson_county.qpublic import fetch_property
+          from farm2027_scout.adapters.jackson_county.qpublic import fetch_properties
 
-          record = fetch_property("02-2N-11-0083-00F0-0120")
+          parcel_ids = [
+              "02-2N-11-0083-00F0-0120",
+              "02-2N-11-0083-00V0-0060",
+              "02-2N-11-0083-00V0-0070",
+              "02-2N-11-0083-00V0-0080",
+              "02-2N-11-0083-10AD-0060",
+              "02-2N-11-0083-10AE-0280",
+              "02-2N-11-0083-10AE-0300",
+              "03-6N-13-0000-0210-0000",
+              "02-2N-11-0083-00V0-0010",
+              "01-6N-12-0000-0250-0000",
+          ]
+          records = fetch_properties(parcel_ids)
+          assert len(records) == len(parcel_ids)
           required = ("parcel_id", "property_use", "acreage", "building_value", "assessed_value")
-          data = record.to_dict()
-          assert all(data[field] is not None for field in required), data
-          assert data["owner"] == "FOSTER ROZEL ESTATE", data
-          assert data["acreage"] == "1.136", data
-          assert data["building_value"] == "0", data
-          assert data["extra_features_value"] == "0", data
+          data = [record.to_dict() for record in records]
+          assert all(item[field] is not None for item in data for field in required), data
+          assert data[0]["owner"] == "FOSTER ROZEL ESTATE", data[0]
+          assert data[0]["acreage"] == "1.136", data[0]
+          assert data[0]["building_value"] == "0", data[0]
+          assert data[0]["extra_features_value"] == "0", data[0]
           print(json.dumps(data, indent=2))
           PY
