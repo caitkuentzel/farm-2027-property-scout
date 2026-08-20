@@ -1,6 +1,8 @@
 name: Live Jackson County inventory
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       auction_date:
@@ -23,7 +25,9 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - run: pytest -q
       - name: Retrieve live public inventory
-        run: farm2027-scout --auction-date '${{ inputs.auction_date }}' --output jackson-auctions.json
+        env:
+          AUCTION_DATE: ${{ inputs.auction_date || '08/25/2026' }}
+        run: farm2027-scout --auction-date "$AUCTION_DATE" --output jackson-auctions.json
       - name: Require at least one parsed parcel and show output
         run: |
           python - <<'PY'
