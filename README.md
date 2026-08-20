@@ -25,7 +25,11 @@ This software performs public-record research only. It does **not** register for
 Auction source -> County adapter -> Normalized auction record -> Local export
 ```
 
-Later milestones will add qPublic lookup, screening, scoring, and due diligence as separate components rather than one brittle scraper.
+Milestone 2 adds qPublic lookup and a rate-safe research queue. The queue handles
+one parcel at a time, waits between requests, backs off and retries temporary
+blocks, checkpoints every successful parcel, and resumes without repeating
+completed research. Screening, scoring, and due diligence remain separate later
+components rather than one brittle scraper.
 
 ## Local development
 
