@@ -31,12 +31,15 @@ jobs:
           url = "https://qpublic.schneidercorp.com/Application.aspx?AppID=851&LayerID=15884&PageTypeID=4&KeyValue=02-2N-11-0083-00F0-0120"
           with sync_playwright() as p:
               browser = p.chromium.launch()
-              page = browser.new_page()
+              page = browser.new_page(user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36")
               page.goto(url, wait_until="domcontentloaded")
               page.wait_for_timeout(2500)
               soup = BeautifulSoup(page.content(), "html.parser")
               for node in soup.find_all(string=re.compile("YOON EUN HEE", re.I)):
                   print("OWNER_HTML", node.parent.parent.prettify()[:4000])
+              body = page.locator("body").inner_text()
+              position = body.find("Primary")
+              print("PRIMARY_TEXT", body[max(0, position - 500):position + 1500])
               browser.close()
 
           record = fetch_property("02-2N-11-0083-00F0-0120")
