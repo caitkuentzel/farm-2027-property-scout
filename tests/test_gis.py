@@ -21,6 +21,7 @@ def test_parse_official_gis_polygon() -> None:
     assert record.geometry_status == "POLYGON_CONFIRMED"
     assert str(record.centroid_latitude) == "30.704000"
     assert str(record.centroid_longitude) == "-85.196000"
+    assert len(record.geometry_rings) == 1
     assert JACKSON_DOR_COUNTY_NUMBER == 42
 
 

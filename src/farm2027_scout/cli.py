@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
-from farm2027_scout.due_diligence import verify_keep_parcels_gis
+from farm2027_scout.due_diligence import verify_keep_parcels_gis, verify_keep_parcels_road_access
 from farm2027_scout.research_queue import research_inventory
 from farm2027_scout.screening import screen_properties
 
@@ -51,6 +51,11 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Verify official parcel geometry for KEEP candidates",
     )
+    parser.add_argument(
+        "--verify-road-access",
+        action="store_true",
+        help="Screen KEEP parcel geometry against official mapped road centerlines",
+    )
     return parser
 
 
@@ -72,9 +77,15 @@ def main() -> int:
             if not args.screen:
                 raise SystemExit("--verify-gis requires --screen")
             rows = verify_keep_parcels_gis(rows)
+        if args.verify_road_access:
+            if not args.verify_gis:
+                raise SystemExit("--verify-road-access requires --verify-gis")
+            rows = verify_keep_parcels_road_access(rows)
     else:
-        if args.screen or args.verify_gis:
-            raise SystemExit("--screen and --verify-gis require --include-qpublic")
+        if args.screen or args.verify_gis or args.verify_road_access:
+            raise SystemExit(
+                "--screen, --verify-gis, and --verify-road-access require --include-qpublic"
+            )
         rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
     if args.format == "json":
         rendered = json.dumps(rows, indent=2)

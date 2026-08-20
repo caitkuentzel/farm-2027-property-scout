@@ -55,6 +55,7 @@ To enrich the entire live inventory with qPublic data, use the resumable queue:
 
 ```bash
 farm2027-scout --auction-date 08/25/2026 --include-qpublic --screen --verify-gis \
+  --verify-road-access \
   --output full-property-research.json
 ```
 
@@ -65,6 +66,12 @@ legal, title, zoning, flood, access, or purchase conclusion.
 GIS verification uses the official Florida Department of Revenue statewide
 cadastral polygon layer. The geometry is useful for screening but is not a
 boundary survey and must not be treated as one.
+
+Road screening compares confirmed parcel polygons with official U.S. Census
+TIGERweb road centerlines. `LIKELY_PHYSICAL_FRONTAGE` means a mapped centerline
+is within 30 meters of the parcel boundary. It does not establish deeded access,
+an easement, a usable entrance, or a public right of way; legal access remains
+`UNVERIFIED` until title and recorded documents are reviewed.
 
 ## Data handling
 

@@ -27,13 +27,14 @@ class GISParcelRecord:
     land_units: Decimal | None
     centroid_latitude: Decimal | None
     centroid_longitude: Decimal | None
+    geometry_rings: list[list[list[float]]]
     mapped_address: str | None
     mapped_city: str | None
     geometry_status: str
     source_url: str
     data_vintage: str
 
-    def to_dict(self) -> dict[str, str | None]:
+    def to_dict(self) -> dict[str, Any]:
         values = asdict(self)
         for field in (
             "geometry_acres",
@@ -76,6 +77,7 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
             land_units=None,
             centroid_latitude=None,
             centroid_longitude=None,
+            geometry_rings=[],
             mapped_address=None,
             mapped_city=None,
             geometry_status="NOT_FOUND_IN_DOR_LAYER",
@@ -123,6 +125,7 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
         land_units=_decimal(attributes.get("NO_LND_UNT")),
         centroid_latitude=latitude,
         centroid_longitude=longitude,
+        geometry_rings=geometry["rings"],
         mapped_address=attributes.get("PHY_ADDR1"),
         mapped_city=attributes.get("PHY_CITY"),
         geometry_status=(
