@@ -38,7 +38,14 @@ python -m pip install -e '.[dev]'
 pytest
 ```
 
-The live inventory command will be documented when the Jackson County adapter is complete.
+Install Chromium once, then retrieve an auction by date:
+
+```bash
+python -m playwright install chromium
+farm2027-scout --auction-date 08/25/2026 --output jackson-auctions.json
+```
+
+The JSON output preserves the public RealAuction detail URL and retrieval time for every parcel.
 
 ## Data handling
 
