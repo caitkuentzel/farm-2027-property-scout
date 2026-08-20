@@ -54,9 +54,13 @@ The JSON output preserves the public RealAuction detail URL and retrieval time f
 To enrich the entire live inventory with qPublic data, use the resumable queue:
 
 ```bash
-farm2027-scout --auction-date 08/25/2026 --include-qpublic \
+farm2027-scout --auction-date 08/25/2026 --include-qpublic --screen \
   --output full-property-research.json
 ```
+
+The first-pass screen ranks researched parcels from 0–100 and labels them
+`KEEP`, `REVIEW`, or `KILL`. A `KILL` is only a research-queue rejection, not a
+legal, title, zoning, flood, access, or purchase conclusion.
 
 ## Data handling
 
