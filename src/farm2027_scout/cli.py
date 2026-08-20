@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
+from farm2027_scout.due_diligence import verify_keep_parcels_gis
 from farm2027_scout.research_queue import research_inventory
 from farm2027_scout.screening import screen_properties
 
@@ -45,6 +46,11 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Add transparent KEEP / REVIEW / KILL screening to enriched parcels",
     )
+    parser.add_argument(
+        "--verify-gis",
+        action="store_true",
+        help="Verify official parcel geometry for KEEP candidates",
+    )
     return parser
 
 
@@ -62,9 +68,13 @@ def main() -> int:
         )
         if args.screen:
             rows = screen_properties(rows)
+        if args.verify_gis:
+            if not args.screen:
+                raise SystemExit("--verify-gis requires --screen")
+            rows = verify_keep_parcels_gis(rows)
     else:
-        if args.screen:
-            raise SystemExit("--screen requires --include-qpublic")
+        if args.screen or args.verify_gis:
+            raise SystemExit("--screen and --verify-gis require --include-qpublic")
         rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
     if args.format == "json":
         rendered = json.dumps(rows, indent=2)
