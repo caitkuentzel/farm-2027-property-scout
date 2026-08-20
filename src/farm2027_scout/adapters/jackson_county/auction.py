@@ -83,6 +83,20 @@ def parse_auction_detail(html: str, source_url: str, retrieved_at: datetime | No
     )
 
 
+def parse_auction_preview(html: str, source_url: str) -> list[AuctionRecord]:
+    """Parse every auction record embedded in a RealAuction preview page."""
+    text = _clean(BeautifulSoup(html, "html.parser").get_text(" ", strip=True))
+    retrieved_at = datetime.now(UTC)
+    records = []
+    for segment in re.split(r"(?=\bAuction Starts\b)", text, flags=re.I):
+        if not re.search(r"\bParcel (?:ID|#|Number)\b", segment, re.I):
+            continue
+        if not re.search(r"\b(?:Opening|Minimum) Bid\b", segment, re.I):
+            continue
+        records.append(parse_auction_detail(segment, source_url, retrieved_at))
+    return records
+
+
 def _detail_links(page: Page, auction_date: str | None) -> list[str]:
     page.goto(CALENDAR_URL, wait_until="domcontentloaded")
     page.wait_for_timeout(1000)
@@ -98,13 +112,6 @@ def _detail_links(page: Page, auction_date: str | None) -> list[str]:
         "href.toLowerCase().includes('zaction=auction') && "
         "href.toLowerCase().includes('zmethod=details'))"
     )
-    if not hrefs:
-        sample_links = page.locator("a[href]").evaluate_all("els => els.slice(0, 30).map(el => el.href)")
-        body = _clean(page.locator("body").inner_text())[:2000]
-        raise RuntimeError(
-            f"No auction detail links found at {page.url}. "
-            f"Page text: {body!r}. First links: {sample_links!r}"
-        )
     return list(dict.fromkeys(hrefs))
 
 
@@ -121,9 +128,12 @@ def fetch_inventory(auction_date: str | None = None, *, headless: bool = True) -
             )
         )
         links = _detail_links(page, auction_date)
-        for link in links:
-            page.goto(link, wait_until="domcontentloaded")
-            page.wait_for_timeout(500)
-            records.append(parse_auction_detail(page.content(), page.url))
+        if links:
+            for link in links:
+                page.goto(link, wait_until="domcontentloaded")
+                page.wait_for_timeout(500)
+                records.append(parse_auction_detail(page.content(), page.url))
+        else:
+            records.extend(parse_auction_preview(page.content(), page.url))
         browser.close()
     return records
