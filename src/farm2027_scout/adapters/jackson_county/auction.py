@@ -115,6 +115,40 @@ def _detail_links(page: Page, auction_date: str | None) -> list[str]:
     return list(dict.fromkeys(hrefs))
 
 
+def _embedded_records(page: Page) -> list[AuctionRecord]:
+    """Extract preview cards anchored by their parcel-specific qPublic links."""
+    parcel_links = page.locator("a[href*='KeyValue=']")
+    expected_parcels = set(
+        parcel_links.evaluate_all(
+            "els => els.map(el => new URL(el.href).searchParams.get('KeyValue')).filter(Boolean)"
+        )
+    )
+    records: list[AuctionRecord] = []
+    seen: set[str] = set()
+    for index in range(parcel_links.count()):
+        card_html = parcel_links.nth(index).evaluate(
+            """el => {
+                let node = el;
+                while (node && node !== document.body) {
+                    const text = node.innerText || '';
+                    if (/Opening Bid/i.test(text) && /Assessed Value/i.test(text) && /Case #/i.test(text)) {
+                        return node.outerHTML;
+                    }
+                    node = node.parentElement;
+                }
+                return el.parentElement.outerHTML;
+            }"""
+        )
+        record = parse_auction_detail(card_html, page.url)
+        if record.parcel_id and record.parcel_id not in seen:
+            seen.add(record.parcel_id)
+            records.append(record)
+    if seen != expected_parcels:
+        missing = sorted(expected_parcels - seen)
+        raise RuntimeError(f"Failed to parse {len(missing)} linked parcels: {missing}")
+    return records
+
+
 def fetch_inventory(auction_date: str | None = None, *, headless: bool = True) -> list[AuctionRecord]:
     """Retrieve current/upcoming Jackson County public tax-deed inventory."""
     records: list[AuctionRecord] = []
@@ -134,6 +168,8 @@ def fetch_inventory(auction_date: str | None = None, *, headless: bool = True) -
                 page.wait_for_timeout(500)
                 records.append(parse_auction_detail(page.content(), page.url))
         else:
-            records.extend(parse_auction_preview(page.content(), page.url))
+            records.extend(_embedded_records(page))
+            if not records:
+                records.extend(parse_auction_preview(page.content(), page.url))
         browser.close()
     return records
