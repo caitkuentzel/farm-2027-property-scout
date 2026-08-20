@@ -1,6 +1,8 @@
 name: Live rate-safe property research
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
