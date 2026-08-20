@@ -1,0 +1,43 @@
+name: Live Jackson County inventory
+
+on:
+  workflow_dispatch:
+    inputs:
+      auction_date:
+        description: Auction date in MM/DD/YYYY format
+        required: true
+        default: 08/25/2026
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e '.[dev]'
+      - run: python -m playwright install --with-deps chromium
+      - run: pytest -q
+      - name: Retrieve live public inventory
+        run: farm2027-scout --auction-date '${{ inputs.auction_date }}' --output jackson-auctions.json
+      - name: Require at least one parsed parcel and show output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          records = json.loads(Path("jackson-auctions.json").read_text())
+          assert records, "No auction detail pages were discovered"
+          assert all(item["parcel_id"] for item in records), "A parcel ID was not parsed"
+          assert all(item["opening_bid"] for item in records), "An opening bid was not parsed"
+          print(json.dumps(records, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jackson-auctions-${{ inputs.auction_date }}
+          path: jackson-auctions.json
+          if-no-files-found: error
