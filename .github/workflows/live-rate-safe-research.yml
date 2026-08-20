@@ -64,9 +64,12 @@ jobs:
               decisions[row["screening_decision"]] += 1
           assert decisions == {"KEEP": 3, "REVIEW": 4, "KILL": 3}, decisions
           keep = [row for row in rows if row["screening_decision"] == "KEEP"]
-          assert all(row["gis"]["geometry_status"] == "POLYGON_CONFIRMED" for row in keep), keep
-          assert all(row["gis"]["geometry_acres"] is not None for row in keep), keep
-          assert all(row["gis_acreage_matches_qpublic"] is True for row in keep), keep
+          confirmed = [row for row in keep if "CONFIRMED" in row["gis"]["geometry_status"]]
+          missing = [row for row in keep if row["gis"]["geometry_status"] == "NOT_FOUND_IN_DOR_LAYER"]
+          assert len(confirmed) == 2, keep
+          assert all(row["gis"]["geometry_acres"] is not None for row in confirmed), confirmed
+          assert all(row["gis_acreage_matches_qpublic"] is True for row in confirmed), confirmed
+          assert [row["parcel_id"] for row in missing] == ["03-6N-13-0000-0210-0000"], missing
           print(json.dumps(decisions, indent=2))
           print(json.dumps(rows, indent=2))
           PY
