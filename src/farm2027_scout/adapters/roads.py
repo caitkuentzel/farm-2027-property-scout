@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import json
 import math
 from dataclasses import asdict, dataclass
 from typing import Any
 from urllib.parse import urlencode
-from urllib.request import urlopen
+
+from farm2027_scout.http import load_json_with_retries
 
 ROAD_SERVICE_URL = (
     "https://tigerweb.geo.census.gov/arcgis/rest/services/"
@@ -144,8 +144,7 @@ def fetch_road_access(
     candidates: list[tuple[float, str | None, str, str]] = []
     for layer, road_class in ROAD_LAYERS:
         source_url = _query_url(layer, rings)
-        with urlopen(source_url, timeout=timeout_seconds) as response:
-            payload = json.load(response)
+        payload = load_json_with_retries(source_url, timeout_seconds=timeout_seconds)
         if payload.get("error"):
             raise RuntimeError(f"Census TIGERweb service error: {payload['error']}")
         for feature in payload.get("features", []):

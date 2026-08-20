@@ -6,7 +6,8 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any
 from urllib.parse import urlencode
-from urllib.request import urlopen
+
+from farm2027_scout.http import load_json_with_retries
 
 FEMA_NFHL_SERVICE_URL = "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer"
 FLOOD_HAZARD_ZONES_LAYER = 28
@@ -79,8 +80,7 @@ def fetch_flood_hazard(
         "f": "json",
     }
     source_url = f"{FLOOD_HAZARD_QUERY_URL}?{urlencode(params)}"
-    with urlopen(source_url, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = load_json_with_retries(source_url, timeout_seconds=timeout_seconds)
     return parse_flood_response(payload, parcel_id, source_url)
 
 

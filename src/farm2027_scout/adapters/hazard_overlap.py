@@ -7,13 +7,13 @@ import math
 from dataclasses import asdict, dataclass
 from typing import Any
 from urllib.parse import urlencode
-from urllib.request import urlopen
 
 from shapely.geometry import GeometryCollection, Polygon, shape
 from shapely.ops import transform, unary_union
 
 from farm2027_scout.adapters.fema import FLOOD_HAZARD_QUERY_URL
 from farm2027_scout.adapters.wetlands import NWI_QUERY_URL
+from farm2027_scout.http import load_json_with_retries
 
 
 @dataclass(frozen=True, slots=True)
@@ -132,8 +132,7 @@ def fetch_hazard_overlap(
     ]
     payloads = []
     for source_url in urls:
-        with urlopen(source_url, timeout=timeout_seconds) as response:
-            payloads.append(json.load(response))
+        payloads.append(load_json_with_retries(source_url, timeout_seconds=timeout_seconds))
     return calculate_hazard_overlap(parcel_id, rings, payloads[0], payloads[1], urls)
 
 

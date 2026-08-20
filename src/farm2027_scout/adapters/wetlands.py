@@ -6,7 +6,8 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any
 from urllib.parse import urlencode
-from urllib.request import urlopen
+
+from farm2027_scout.http import load_json_with_retries
 
 NWI_SERVICE_URL = (
     "https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer"
@@ -95,8 +96,7 @@ def fetch_wetlands(
         "f": "json",
     }
     source_url = f"{NWI_QUERY_URL}?{urlencode(params)}"
-    with urlopen(source_url, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = load_json_with_retries(source_url, timeout_seconds=timeout_seconds)
     return parse_wetlands_response(payload, parcel_id, source_url)
 
 

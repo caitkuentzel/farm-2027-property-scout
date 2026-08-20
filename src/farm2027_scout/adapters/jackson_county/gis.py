@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import json
 from dataclasses import asdict, dataclass
 from decimal import Decimal
 from typing import Any
 from urllib.parse import urlencode
-from urllib.request import urlopen
+
+from farm2027_scout.http import load_json_with_retries
 
 GIS_LAYER_URL = (
     "https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/"
@@ -95,17 +95,14 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
     if len(matched_ids) > 1:
         raise RuntimeError(f"GIS query for {parcel_id} returned multiple parcel IDs")
     shape_area = sum(
-        (_decimal(item.get("attributes", {}).get("Shape__Area")) or Decimal(0))
-        for item in features
+        (_decimal(item.get("attributes", {}).get("Shape__Area")) or Decimal(0)) for item in features
     )
     geometry_acres = shape_area / SQUARE_METERS_PER_ACRE if shape_area else None
     if geometry_acres is not None:
         geometry_acres = geometry_acres.quantize(Decimal("0.001"))
     geometry = {
         "rings": [
-            ring
-            for item in features
-            for ring in (item.get("geometry") or {}).get("rings", [])
+            ring for item in features for ring in (item.get("geometry") or {}).get("rings", [])
         ]
     }
     latitude, longitude = _centroid(geometry)
@@ -147,14 +144,12 @@ def fetch_gis_parcel(parcel_id: str, *, timeout_seconds: int = 120) -> GISParcel
     params = {
         "where": where,
         "outFields": (
-            "PARCELNO,PARCEL_ID,PARCEL_ID_,NO_LND_UNT,LND_SQFOOT,"
-            "PHY_ADDR1,PHY_CITY,Shape__Area"
+            "PARCELNO,PARCEL_ID,PARCEL_ID_,NO_LND_UNT,LND_SQFOOT,PHY_ADDR1,PHY_CITY,Shape__Area"
         ),
         "returnGeometry": "true",
         "outSR": "4326",
         "f": "json",
     }
     source_url = f"{GIS_QUERY_URL}?{urlencode(params)}"
-    with urlopen(source_url, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = load_json_with_retries(source_url, timeout_seconds=timeout_seconds)
     return parse_gis_response(payload, parcel_id, source_url)
