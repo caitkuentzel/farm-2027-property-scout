@@ -9,7 +9,11 @@ import sys
 from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
-from farm2027_scout.due_diligence import verify_keep_parcels_gis, verify_keep_parcels_road_access
+from farm2027_scout.due_diligence import (
+    verify_keep_parcels_flood_hazard,
+    verify_keep_parcels_gis,
+    verify_keep_parcels_road_access,
+)
 from farm2027_scout.research_queue import research_inventory
 from farm2027_scout.screening import screen_properties
 
@@ -56,6 +60,11 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Screen KEEP parcel geometry against official mapped road centerlines",
     )
+    parser.add_argument(
+        "--verify-flood-hazard",
+        action="store_true",
+        help="Screen KEEP parcel geometry against official FEMA flood zones",
+    )
     return parser
 
 
@@ -81,11 +90,13 @@ def main() -> int:
             if not args.verify_gis:
                 raise SystemExit("--verify-road-access requires --verify-gis")
             rows = verify_keep_parcels_road_access(rows)
+        if args.verify_flood_hazard:
+            if not args.verify_gis:
+                raise SystemExit("--verify-flood-hazard requires --verify-gis")
+            rows = verify_keep_parcels_flood_hazard(rows)
     else:
-        if args.screen or args.verify_gis or args.verify_road_access:
-            raise SystemExit(
-                "--screen, --verify-gis, and --verify-road-access require --include-qpublic"
-            )
+        if args.screen or args.verify_gis or args.verify_road_access or args.verify_flood_hazard:
+            raise SystemExit("research flags require --include-qpublic")
         rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
     if args.format == "json":
         rendered = json.dumps(rows, indent=2)

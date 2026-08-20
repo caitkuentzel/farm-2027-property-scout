@@ -34,6 +34,7 @@ jobs:
             --screen \
             --verify-gis \
             --verify-road-access \
+            --verify-flood-hazard \
             --delay-seconds 20 \
             --output full-property-research.json
       - name: Require all ten current parcels and show output
@@ -75,6 +76,10 @@ jobs:
           assert len(road_screened) == 2, keep
           assert all(row["road_access"]["legal_access_status"] == "UNVERIFIED" for row in keep), keep
           assert missing[0]["road_access"]["physical_access_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
+          flood_screened = [row for row in confirmed if row["flood_hazard"]["flood_zones"]]
+          assert len(flood_screened) == 2, keep
+          assert all(row["flood_hazard"]["intersects_special_flood_hazard_area"] is not None for row in confirmed), confirmed
+          assert missing[0]["flood_hazard"]["flood_screening_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
           print(json.dumps(decisions, indent=2))
           print(json.dumps(rows, indent=2))
           PY

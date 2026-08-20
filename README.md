@@ -56,6 +56,7 @@ To enrich the entire live inventory with qPublic data, use the resumable queue:
 ```bash
 farm2027-scout --auction-date 08/25/2026 --include-qpublic --screen --verify-gis \
   --verify-road-access \
+  --verify-flood-hazard \
   --output full-property-research.json
 ```
 
@@ -72,6 +73,11 @@ TIGERweb road centerlines. `LIKELY_PHYSICAL_FRONTAGE` means a mapped centerline
 is within 30 meters of the parcel boundary. It does not establish deeded access,
 an easement, a usable entrance, or a public right of way; legal access remains
 `UNVERIFIED` until title and recorded documents are reviewed.
+
+Flood screening queries FEMA's official National Flood Hazard Layer for every
+zone polygon intersecting a confirmed KEEP parcel. It reports the FEMA zone
+codes and the service's Special Flood Hazard Area flag. This is a map screen,
+not an elevation certificate, insurance quote, or final flood determination.
 
 ## Data handling
 

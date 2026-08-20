@@ -5,6 +5,11 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
+from farm2027_scout.adapters.fema import (
+    FloodHazardRecord,
+    fetch_flood_hazard,
+    unresolved_flood_hazard,
+)
 from farm2027_scout.adapters.jackson_county.gis import GISParcelRecord, fetch_gis_parcel
 from farm2027_scout.adapters.roads import (
     RoadAccessRecord,
@@ -14,6 +19,7 @@ from farm2027_scout.adapters.roads import (
 
 FetchGIS = Callable[[str], GISParcelRecord]
 FetchRoadAccess = Callable[[str, list[list[list[float]]]], RoadAccessRecord]
+FetchFloodHazard = Callable[[str, list[list[list[float]]]], FloodHazardRecord]
 
 
 def verify_keep_parcels_gis(
@@ -59,4 +65,22 @@ def verify_keep_parcels_road_access(
         rings = (row.get("gis") or {}).get("geometry_rings", [])
         result = fetch(parcel_id, rings) if rings else unresolved_road_access(parcel_id)
         verified.append({**row, "road_access": result.to_dict()})
+    return verified
+
+
+def verify_keep_parcels_flood_hazard(
+    rows: list[dict[str, Any]], *, fetch: FetchFloodHazard = fetch_flood_hazard
+) -> list[dict[str, Any]]:
+    """Attach official FEMA map evidence to KEEP parcels with GIS geometry."""
+    verified = []
+    for row in rows:
+        if row.get("screening_decision") != "KEEP":
+            verified.append(row)
+            continue
+        parcel_id = row.get("parcel_id")
+        if not parcel_id:
+            raise RuntimeError("A KEEP row is missing its parcel ID")
+        rings = (row.get("gis") or {}).get("geometry_rings", [])
+        result = fetch(parcel_id, rings) if rings else unresolved_flood_hazard(parcel_id)
+        verified.append({**row, "flood_hazard": result.to_dict()})
     return verified
