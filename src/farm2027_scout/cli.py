@@ -10,6 +10,7 @@ from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
 from farm2027_scout.research_queue import research_inventory
+from farm2027_scout.screening import screen_properties
 
 FIELDS = (
     "auction_date",
@@ -39,6 +40,11 @@ def _parser() -> argparse.ArgumentParser:
         default=20,
         help="Seconds to wait between qPublic parcels (default: 20)",
     )
+    parser.add_argument(
+        "--screen",
+        action="store_true",
+        help="Add transparent KEEP / REVIEW / KILL screening to enriched parcels",
+    )
     return parser
 
 
@@ -54,7 +60,11 @@ def main() -> int:
             args.output,
             delay_seconds=args.delay_seconds,
         )
+        if args.screen:
+            rows = screen_properties(rows)
     else:
+        if args.screen:
+            raise SystemExit("--screen requires --include-qpublic")
         rows = [record.to_dict() for record in fetch_inventory(args.auction_date)]
     if args.format == "json":
         rendered = json.dumps(rows, indent=2)
