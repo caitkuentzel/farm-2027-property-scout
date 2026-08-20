@@ -4,7 +4,7 @@ from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.qpublic import PropertyRecord
 from farm2027_scout.models import AuctionRecord
-from farm2027_scout.research_queue import research_properties
+from farm2027_scout.research_queue import research_inventory, research_properties
 
 
 def _auction(parcel_id: str) -> AuctionRecord:
@@ -98,4 +98,29 @@ def test_queue_resumes_without_refetching_completed_parcels(tmp_path: Path) -> N
     )
 
     assert calls == ["A", "B"]
+    assert [row["parcel_id"] for row in rows] == ["A", "B"]
+
+
+def test_live_inventory_is_connected_to_research_queue(tmp_path: Path) -> None:
+    inventory_dates: list[str | None] = []
+    property_calls: list[str] = []
+
+    def inventory_fetch(auction_date: str | None) -> list[AuctionRecord]:
+        inventory_dates.append(auction_date)
+        return [_auction("A"), _auction("B")]
+
+    def property_fetch(parcel_id: str) -> PropertyRecord:
+        property_calls.append(parcel_id)
+        return _property(parcel_id)
+
+    rows = research_inventory(
+        "08/25/2026",
+        tmp_path / "full-research.json",
+        inventory_fetch=inventory_fetch,
+        property_fetch=property_fetch,
+        sleep=lambda _: None,
+    )
+
+    assert inventory_dates == ["08/25/2026"]
+    assert property_calls == ["A", "B"]
     assert [row["parcel_id"] for row in rows] == ["A", "B"]
