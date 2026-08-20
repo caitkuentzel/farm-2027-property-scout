@@ -84,14 +84,14 @@ def parse_auction_detail(html: str, source_url: str, retrieved_at: datetime | No
 
 
 def _detail_links(page: Page, auction_date: str | None) -> list[str]:
+    page.goto(CALENDAR_URL, wait_until="domcontentloaded")
+    page.wait_for_timeout(1000)
     if auction_date:
         preview = urljoin(
             BASE_URL,
             f"index.cfm?zaction=AUCTION&zmethod=PREVIEW&AUCTIONDATE={auction_date}",
         )
         page.goto(preview, wait_until="domcontentloaded")
-    else:
-        page.goto(CALENDAR_URL, wait_until="domcontentloaded")
     page.wait_for_timeout(1500)
     hrefs = page.locator("a[href]").evaluate_all(
         "els => els.map(el => el.href).filter(href => "
@@ -113,7 +113,13 @@ def fetch_inventory(auction_date: str | None = None, *, headless: bool = True) -
     records: list[AuctionRecord] = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=headless)
-        page = browser.new_page()
+        page = browser.new_page(
+            user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/150.0.0.0 Safari/537.36"
+            )
+        )
         links = _detail_links(page, auction_date)
         for link in links:
             page.goto(link, wait_until="domcontentloaded")
