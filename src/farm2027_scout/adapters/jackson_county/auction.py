@@ -12,7 +12,7 @@ from playwright.sync_api import Page, sync_playwright
 
 from farm2027_scout.models import AuctionRecord
 
-BASE_URL = "https://www.jackson.realtaxdeed.com/"
+BASE_URL = "https://jackson.realtaxdeed.com/"
 CALENDAR_URL = urljoin(BASE_URL, "index.cfm?zaction=USER&zmethod=CALENDAR")
 
 LABELS = {
