@@ -51,6 +51,13 @@ farm2027-scout --auction-date 08/25/2026 --output jackson-auctions.json
 
 The JSON output preserves the public RealAuction detail URL and retrieval time for every parcel.
 
+To enrich the entire live inventory with qPublic data, use the resumable queue:
+
+```bash
+farm2027-scout --auction-date 08/25/2026 --include-qpublic \
+  --output full-property-research.json
+```
+
 ## Data handling
 
 - Source URLs and retrieval timestamps are preserved.
