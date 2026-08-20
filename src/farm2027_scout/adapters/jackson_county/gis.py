@@ -67,16 +67,46 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
     if payload.get("error"):
         raise RuntimeError(f"Florida cadastral service error: {payload['error']}")
     features = payload.get("features", [])
-    if len(features) != 1:
-        raise RuntimeError(f"Expected one GIS polygon for {parcel_id}; found {len(features)}")
+    if not features:
+        return GISParcelRecord(
+            parcel_id=parcel_id,
+            matched_parcel_id=parcel_id,
+            geometry_acres=None,
+            land_square_feet=None,
+            land_units=None,
+            centroid_latitude=None,
+            centroid_longitude=None,
+            mapped_address=None,
+            mapped_city=None,
+            geometry_status="NOT_FOUND_IN_DOR_LAYER",
+            source_url=source_url,
+            data_vintage="Florida DOR cadastral 2025; service updated June 2026",
+        )
 
     feature = features[0]
     attributes = feature.get("attributes", {})
-    shape_area = _decimal(attributes.get("Shape__Area"))
+    matched_ids = {
+        str(item.get("attributes", {}).get("PARCELNO"))
+        for item in features
+        if item.get("attributes", {}).get("PARCELNO")
+    }
+    if len(matched_ids) > 1:
+        raise RuntimeError(f"GIS query for {parcel_id} returned multiple parcel IDs")
+    shape_area = sum(
+        (_decimal(item.get("attributes", {}).get("Shape__Area")) or Decimal(0))
+        for item in features
+    )
     geometry_acres = shape_area / SQUARE_METERS_PER_ACRE if shape_area else None
     if geometry_acres is not None:
         geometry_acres = geometry_acres.quantize(Decimal("0.001"))
-    latitude, longitude = _centroid(feature.get("geometry"))
+    geometry = {
+        "rings": [
+            ring
+            for item in features
+            for ring in (item.get("geometry") or {}).get("rings", [])
+        ]
+    }
+    latitude, longitude = _centroid(geometry)
     matched = next(
         (
             str(attributes[field])
@@ -95,7 +125,13 @@ def parse_gis_response(payload: dict[str, Any], parcel_id: str, source_url: str)
         centroid_longitude=longitude,
         mapped_address=attributes.get("PHY_ADDR1"),
         mapped_city=attributes.get("PHY_CITY"),
-        geometry_status="POLYGON_CONFIRMED" if feature.get("geometry") else "ATTRIBUTES_ONLY",
+        geometry_status=(
+            "MULTIPART_POLYGON_CONFIRMED"
+            if len(features) > 1 and geometry["rings"]
+            else "POLYGON_CONFIRMED"
+            if geometry["rings"]
+            else "ATTRIBUTES_ONLY"
+        ),
         source_url=source_url,
         data_vintage="Florida DOR cadastral 2025; service updated June 2026",
     )
