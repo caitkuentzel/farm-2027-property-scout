@@ -98,6 +98,13 @@ def _detail_links(page: Page, auction_date: str | None) -> list[str]:
         "href.toLowerCase().includes('zaction=auction') && "
         "href.toLowerCase().includes('zmethod=details'))"
     )
+    if not hrefs:
+        sample_links = page.locator("a[href]").evaluate_all("els => els.slice(0, 30).map(el => el.href)")
+        body = _clean(page.locator("body").inner_text())[:2000]
+        raise RuntimeError(
+            f"No auction detail links found at {page.url}. "
+            f"Page text: {body!r}. First links: {sample_links!r}"
+        )
     return list(dict.fromkeys(hrefs))
 
 
