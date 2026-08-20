@@ -1,0 +1,65 @@
+name: Live rate-safe property research
+
+on:
+  workflow_dispatch:
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e '.[dev]'
+      - run: python -m playwright install --with-deps chromium
+      - run: pytest -q
+      - name: Research two live parcels politely
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import UTC, datetime
+          from decimal import Decimal
+          from pathlib import Path
+
+          from farm2027_scout.models import AuctionRecord
+          from farm2027_scout.research_queue import research_properties
+
+          def auction(parcel_id, address, opening_bid, assessed_value):
+              return AuctionRecord(
+                  auction_date=datetime(2026, 8, 25, tzinfo=UTC),
+                  case_number=None,
+                  parcel_id=parcel_id,
+                  property_address=address,
+                  opening_bid=Decimal(opening_bid),
+                  assessed_value=Decimal(assessed_value),
+                  source_url="https://jackson.realtaxdeed.com/",
+                  retrieved_at=datetime.now(UTC),
+              )
+
+          auctions = [
+              auction("02-2N-11-0083-00F0-0120", "Cypress Dr", "2140.20", "4430"),
+              auction("02-2N-11-0083-00V0-0060", "Dixie Dr", "2094.30", "2214"),
+          ]
+          output = Path("rate-safe-research.json")
+          rows = research_properties(
+              auctions,
+              output,
+              delay_seconds=20,
+              max_retries=3,
+              backoff_seconds=45,
+          )
+          assert len(rows) == 2, rows
+          assert all(row["acreage"] is not None for row in rows), rows
+          assert all("auction_assessed_value" in row for row in rows), rows
+          assert all("qpublic_assessed_value" in row for row in rows), rows
+          print(json.dumps(rows, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rate-safe-property-research
+          path: rate-safe-research.json
+          if-no-files-found: error
