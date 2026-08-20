@@ -54,7 +54,7 @@ class PropertyRecord:
 
 
 FIELD_ALIASES = {
-    "owner": ("owner", "owner name", "name"),
+    "owner": ("owner", "owner name"),
     "property_address": ("location address", "property address", "physical address"),
     "legal_description": ("brief tax description", "legal description"),
     "property_use": ("property use", "property use code", "class"),
@@ -114,6 +114,15 @@ def _without_note(value: str | None) -> str | None:
     return _clean(re.split(r"\s*\(Note:", value, maxsplit=1, flags=re.I)[0])
 
 
+def _primary_owner(soup: BeautifulSoup) -> str | None:
+    lines = [_clean(line) for line in soup.get_text("\n", strip=True).splitlines()]
+    lines = [line for line in lines if line]
+    for index, line in enumerate(lines[:-1]):
+        if _normalize_label(line) == "primary owner":
+            return lines[index + 1]
+    return None
+
+
 def _decimal(value: str | None) -> Decimal | None:
     if not value:
         return None
@@ -141,7 +150,7 @@ def parse_property_report(html: str, parcel_id: str, source_url: str) -> Propert
         vacant_improved = "IMPROVED"
     return PropertyRecord(
         parcel_id=parcel_id,
-        owner=_value(fields, text, "owner"),
+        owner=_primary_owner(soup) or _value(fields, text, "owner"),
         property_address=_value(fields, text, "property_address"),
         legal_description=_without_note(_value(fields, text, "legal_description")),
         property_use=_without_note(property_use),
