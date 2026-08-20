@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from farm2027_scout.adapters.jackson_county.gis import parse_gis_response
+from farm2027_scout.adapters.jackson_county.gis import (
+    JACKSON_DOR_COUNTY_NUMBER,
+    parse_gis_response,
+)
 from farm2027_scout.due_diligence import verify_keep_parcels_gis
 
 
@@ -18,6 +21,7 @@ def test_parse_official_gis_polygon() -> None:
     assert record.geometry_status == "POLYGON_CONFIRMED"
     assert str(record.centroid_latitude) == "30.704000"
     assert str(record.centroid_longitude) == "-85.196000"
+    assert JACKSON_DOR_COUNTY_NUMBER == 42
 
 
 def test_only_keep_rows_receive_gis_verification() -> None:
