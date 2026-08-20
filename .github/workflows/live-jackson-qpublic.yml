@@ -29,5 +29,9 @@ jobs:
           required = ("parcel_id", "property_use", "acreage", "building_value", "assessed_value")
           data = record.to_dict()
           assert all(data[field] is not None for field in required), data
+          assert data["owner"] == "YOON EUN HEE", data
+          assert data["acreage"] == "1.136", data
+          assert data["building_value"] == "0", data
+          assert data["extra_features_value"] == "0", data
           print(json.dumps(data, indent=2))
           PY
