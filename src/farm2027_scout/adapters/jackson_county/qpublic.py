@@ -168,9 +168,9 @@ def parse_property_report(html: str, parcel_id: str, source_url: str) -> Propert
     )
 
 
-def fetch_property(parcel_id: str, *, headless: bool = True) -> PropertyRecord:
-    """Retrieve one public Jackson County qPublic report."""
-    url = QPUBLIC_URL.format(parcel_id=quote(parcel_id, safe="-"))
+def fetch_properties(parcel_ids: list[str], *, headless: bool = True) -> list[PropertyRecord]:
+    """Retrieve public Jackson County qPublic reports in one browser session."""
+    records: list[PropertyRecord] = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=headless)
         page = browser.new_page(
@@ -180,11 +180,18 @@ def fetch_property(parcel_id: str, *, headless: bool = True) -> PropertyRecord:
                 "Chrome/150.0.0.0 Safari/537.36"
             )
         )
-        page.goto(url, wait_until="domcontentloaded", timeout=60_000)
-        page.wait_for_timeout(2500)
-        body = _clean(page.locator("body").inner_text())
-        if "sorry, you have been blocked" in body.lower():
-            raise RuntimeError("qPublic blocked the browser session")
-        record = parse_property_report(page.content(), parcel_id, page.url)
+        for parcel_id in parcel_ids:
+            url = QPUBLIC_URL.format(parcel_id=quote(parcel_id, safe="-"))
+            page.goto(url, wait_until="domcontentloaded", timeout=60_000)
+            page.wait_for_timeout(2500)
+            body = _clean(page.locator("body").inner_text())
+            if "sorry, you have been blocked" in body.lower():
+                raise RuntimeError("qPublic blocked the browser session")
+            records.append(parse_property_report(page.content(), parcel_id, page.url))
         browser.close()
-    return record
+    return records
+
+
+def fetch_property(parcel_id: str, *, headless: bool = True) -> PropertyRecord:
+    """Retrieve one public Jackson County qPublic report."""
+    return fetch_properties([parcel_id], headless=headless)[0]
