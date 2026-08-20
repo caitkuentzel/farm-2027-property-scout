@@ -16,10 +16,16 @@ from farm2027_scout.adapters.roads import (
     fetch_road_access,
     unresolved_road_access,
 )
+from farm2027_scout.adapters.wetlands import (
+    WetlandsRecord,
+    fetch_wetlands,
+    unresolved_wetlands,
+)
 
 FetchGIS = Callable[[str], GISParcelRecord]
 FetchRoadAccess = Callable[[str, list[list[list[float]]]], RoadAccessRecord]
 FetchFloodHazard = Callable[[str, list[list[list[float]]]], FloodHazardRecord]
+FetchWetlands = Callable[[str, list[list[list[float]]]], WetlandsRecord]
 
 
 def verify_keep_parcels_gis(
@@ -83,4 +89,22 @@ def verify_keep_parcels_flood_hazard(
         rings = (row.get("gis") or {}).get("geometry_rings", [])
         result = fetch(parcel_id, rings) if rings else unresolved_flood_hazard(parcel_id)
         verified.append({**row, "flood_hazard": result.to_dict()})
+    return verified
+
+
+def verify_keep_parcels_wetlands(
+    rows: list[dict[str, Any]], *, fetch: FetchWetlands = fetch_wetlands
+) -> list[dict[str, Any]]:
+    """Attach official NWI map evidence to KEEP parcels with GIS geometry."""
+    verified = []
+    for row in rows:
+        if row.get("screening_decision") != "KEEP":
+            verified.append(row)
+            continue
+        parcel_id = row.get("parcel_id")
+        if not parcel_id:
+            raise RuntimeError("A KEEP row is missing its parcel ID")
+        rings = (row.get("gis") or {}).get("geometry_rings", [])
+        result = fetch(parcel_id, rings) if rings else unresolved_wetlands(parcel_id)
+        verified.append({**row, "wetlands": result.to_dict()})
     return verified
