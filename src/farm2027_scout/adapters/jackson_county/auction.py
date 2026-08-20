@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import replace
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
 from urllib.parse import urljoin
@@ -117,6 +118,8 @@ def _detail_links(page: Page, auction_date: str | None) -> list[str]:
 
 def _embedded_records(page: Page) -> list[AuctionRecord]:
     """Extract preview cards anchored by their parcel-specific qPublic links."""
+    page_text = _clean(page.locator("body").inner_text())
+    auction_date = _date(_field(page_text, LABELS["auction_date"]))
     parcel_links = page.locator("a[href*='KeyValue=']")
     expected_parcels = set(
         parcel_links.evaluate_all(
@@ -140,6 +143,8 @@ def _embedded_records(page: Page) -> list[AuctionRecord]:
             }"""
         )
         record = parse_auction_detail(card_html, page.url)
+        if record.auction_date is None and auction_date is not None:
+            record = replace(record, auction_date=auction_date)
         if record.parcel_id and record.parcel_id not in seen:
             seen.add(record.parcel_id)
             records.append(record)
