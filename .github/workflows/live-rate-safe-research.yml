@@ -13,7 +13,7 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -32,6 +32,7 @@ jobs:
             --auction-date "$AUCTION_DATE" \
             --include-qpublic \
             --screen \
+            --verify-gis \
             --delay-seconds 20 \
             --output full-property-research.json
       - name: Require all ten current parcels and show output
@@ -62,6 +63,10 @@ jobs:
           for row in rows:
               decisions[row["screening_decision"]] += 1
           assert decisions == {"KEEP": 3, "REVIEW": 4, "KILL": 3}, decisions
+          keep = [row for row in rows if row["screening_decision"] == "KEEP"]
+          assert all(row["gis"]["geometry_status"] == "POLYGON_CONFIRMED" for row in keep), keep
+          assert all(row["gis"]["geometry_acres"] is not None for row in keep), keep
+          assert all(row["gis_acreage_matches_qpublic"] is True for row in keep), keep
           print(json.dumps(decisions, indent=2))
           print(json.dumps(rows, indent=2))
           PY
