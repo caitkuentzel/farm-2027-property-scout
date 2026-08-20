@@ -58,6 +58,7 @@ farm2027-scout --auction-date 08/25/2026 --include-qpublic --screen --verify-gis
   --verify-road-access \
   --verify-flood-hazard \
   --verify-wetlands \
+  --calculate-hazard-overlap \
   --output full-property-research.json
 ```
 
@@ -84,6 +85,11 @@ Wetlands screening checks confirmed KEEP polygons against the official USFWS
 National Wetlands Inventory and preserves the mapped habitat type and Cowardin
 classification code. NWI is regional screening data; it is not a field survey,
 jurisdictional determination, or permission to fill or develop wetlands.
+
+Hazard overlap calculates the percentage of confirmed parcel geometry covered
+by FEMA Special Flood Hazard Area polygons, mapped NWI wetlands, and their
+non-double-counted union. The remainder means only "outside these two mapped
+constraints"; it is not a buildability determination.
 
 ## Data handling
 

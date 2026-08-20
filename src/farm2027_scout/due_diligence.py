@@ -10,6 +10,11 @@ from farm2027_scout.adapters.fema import (
     fetch_flood_hazard,
     unresolved_flood_hazard,
 )
+from farm2027_scout.adapters.hazard_overlap import (
+    HazardOverlapRecord,
+    fetch_hazard_overlap,
+    unresolved_hazard_overlap,
+)
 from farm2027_scout.adapters.jackson_county.gis import GISParcelRecord, fetch_gis_parcel
 from farm2027_scout.adapters.roads import (
     RoadAccessRecord,
@@ -26,6 +31,7 @@ FetchGIS = Callable[[str], GISParcelRecord]
 FetchRoadAccess = Callable[[str, list[list[list[float]]]], RoadAccessRecord]
 FetchFloodHazard = Callable[[str, list[list[list[float]]]], FloodHazardRecord]
 FetchWetlands = Callable[[str, list[list[list[float]]]], WetlandsRecord]
+FetchHazardOverlap = Callable[[str, list[list[list[float]]]], HazardOverlapRecord]
 
 
 def verify_keep_parcels_gis(
@@ -107,4 +113,22 @@ def verify_keep_parcels_wetlands(
         rings = (row.get("gis") or {}).get("geometry_rings", [])
         result = fetch(parcel_id, rings) if rings else unresolved_wetlands(parcel_id)
         verified.append({**row, "wetlands": result.to_dict()})
+    return verified
+
+
+def calculate_keep_parcels_hazard_overlap(
+    rows: list[dict[str, Any]], *, fetch: FetchHazardOverlap = fetch_hazard_overlap
+) -> list[dict[str, Any]]:
+    """Attach mapped flood and wetland coverage percentages to KEEP parcels."""
+    verified = []
+    for row in rows:
+        if row.get("screening_decision") != "KEEP":
+            verified.append(row)
+            continue
+        parcel_id = row.get("parcel_id")
+        if not parcel_id:
+            raise RuntimeError("A KEEP row is missing its parcel ID")
+        rings = (row.get("gis") or {}).get("geometry_rings", [])
+        result = fetch(parcel_id, rings) if rings else unresolved_hazard_overlap(parcel_id)
+        verified.append({**row, "hazard_overlap": result.to_dict()})
     return verified

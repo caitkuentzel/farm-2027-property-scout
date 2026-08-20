@@ -36,6 +36,7 @@ jobs:
             --verify-road-access \
             --verify-flood-hazard \
             --verify-wetlands \
+            --calculate-hazard-overlap \
             --delay-seconds 20 \
             --output full-property-research.json
       - name: Require all ten current parcels and show output
@@ -85,6 +86,11 @@ jobs:
           assert len(wetlands_screened) == 2, keep
           assert all(row["wetlands"]["classification_codes"] for row in wetlands_screened), wetlands_screened
           assert missing[0]["wetlands"]["wetlands_screening_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
+          overlaps = [row["hazard_overlap"] for row in confirmed]
+          assert all(item["overlap_status"] == "COVERAGE_CALCULATED" for item in overlaps), overlaps
+          assert all(0 <= item["combined_mapped_constraint_percent"] <= 100 for item in overlaps), overlaps
+          assert all(round(item["combined_mapped_constraint_percent"] + item["outside_mapped_flood_and_wetland_percent"], 1) == 100 for item in overlaps), overlaps
+          assert missing[0]["hazard_overlap"]["overlap_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
           print(json.dumps(decisions, indent=2))
           print(json.dumps(rows, indent=2))
           PY

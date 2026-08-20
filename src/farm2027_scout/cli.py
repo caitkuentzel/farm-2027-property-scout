@@ -10,6 +10,7 @@ from pathlib import Path
 
 from farm2027_scout.adapters.jackson_county.auction import fetch_inventory
 from farm2027_scout.due_diligence import (
+    calculate_keep_parcels_hazard_overlap,
     verify_keep_parcels_flood_hazard,
     verify_keep_parcels_gis,
     verify_keep_parcels_road_access,
@@ -71,6 +72,11 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Screen KEEP parcel geometry against official USFWS mapped wetlands",
     )
+    parser.add_argument(
+        "--calculate-hazard-overlap",
+        action="store_true",
+        help="Calculate KEEP parcel percentages covered by mapped SFHA and wetlands",
+    )
     return parser
 
 
@@ -104,6 +110,12 @@ def main() -> int:
             if not args.verify_gis:
                 raise SystemExit("--verify-wetlands requires --verify-gis")
             rows = verify_keep_parcels_wetlands(rows)
+        if args.calculate_hazard_overlap:
+            if not (args.verify_flood_hazard and args.verify_wetlands):
+                raise SystemExit(
+                    "--calculate-hazard-overlap requires --verify-flood-hazard and --verify-wetlands"
+                )
+            rows = calculate_keep_parcels_hazard_overlap(rows)
     else:
         if any(
             (
@@ -112,6 +124,7 @@ def main() -> int:
                 args.verify_road_access,
                 args.verify_flood_hazard,
                 args.verify_wetlands,
+                args.calculate_hazard_overlap,
             )
         ):
             raise SystemExit("research flags require --include-qpublic")
