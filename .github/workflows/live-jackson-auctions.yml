@@ -1,4 +1,4 @@
-name: Live Jackson County inventory
+name: INTERNAL CHECK - auction adapter
 
 on:
   push:

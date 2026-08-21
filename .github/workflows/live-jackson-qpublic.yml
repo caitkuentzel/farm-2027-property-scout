@@ -1,4 +1,4 @@
-name: Live Jackson County qPublic lookup
+name: INTERNAL CHECK - qPublic adapter
 
 on:
   push:
