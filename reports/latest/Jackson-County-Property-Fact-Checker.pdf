@@ -1,0 +1,313 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/Contents 31 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+5 0 obj
+<<
+/Contents 32 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+6 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&zmethod=PREVIEW&AUCTIONDATE=08/25/2026)
+>> /Border [ 0 0 0 ] /Rect [ 50.64 449.56 74.652 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+7 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://qpublic.schneidercorp.com/Application.aspx?AppID=851&LayerID=15884&PageTypeID=4&KeyValue=01-6N-12-0000-0250-0000)
+>> /Border [ 0 0 0 ] /Rect [ 80.5272 449.56 104.136 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+8 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query?where=CO_NO%3D42+AND+PARCELNO%3D%27016N12000002500000%27&outFields=PARCELNO%2CPARCEL_ID%2CPARCEL_ID_%2CNO_LND_UNT%2CLND_SQFOOT%2CPHY_ADDR1%2CPHY_CITY%2CShape__Area&returnGeometry=true&outSR=4326&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 110.0112 449.56 144.8232 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+9 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Transportation_LargeScale/MapServer/2/query?where=1%3D1&geometry=-85.39731505438172%2C30.944241404776665%2C-85.39351089549248%2C30.947780931292733&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=NAME%2CBASENAME%2CMTFCC&returnGeometry=true&outSR=4326&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 150.6984 449.56 167.9064 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+10 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28/query?where=1%3D1&geometry=%7B%22rings%22%3A%5B%5B%5B-85.3951084121229%2C30.9458589982026%5D%2C%5B-85.3951172358034%2C30.9455983796274%5D%2C%5B-85.3957439428539%2C30.9455991516332%5D%2C%5B-85.3957423160553%2C30.945861137101%5D%2C%5B-85.3951084121229%2C30.9458589982026%5D%5D%2C%5B%5B-85.3950820070203%2C30.9462981639837%5D%2C%5B-85.3950976367126%2C30.9460382038205%5D%2C%5B-85.3957412044823%2C30.9460403748193%5D%2C%5B-85.3957388223952%2C30.946423956442%5D%2C%5B-85.3955021898627%2C30.9464231582151%5D%2C%5B-85.3955029571163%2C30.9462995850876%5D%2C%5B-85.3950820070203%2C30.9462981639837%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPolygon&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=FLD_ZONE%2CZONE_SUBTY%2CSFHA_TF&returnGeometry=false&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 173.7816 449.56 193.7832 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+11 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer/0/query?where=1%3D1&geometry=%7B%22rings%22%3A%5B%5B%5B-85.3951084121229%2C30.9458589982026%5D%2C%5B-85.3951172358034%2C30.9455983796274%5D%2C%5B-85.3957439428539%2C30.9455991516332%5D%2C%5B-85.3957423160553%2C30.945861137101%5D%2C%5B-85.3951084121229%2C30.9458589982026%5D%5D%2C%5B%5B-85.3950820070203%2C30.9462981639837%5D%2C%5B-85.3950976367126%2C30.9460382038205%5D%2C%5B-85.3957412044823%2C30.9460403748193%5D%2C%5B-85.3957388223952%2C30.946423956442%5D%2C%5B-85.3955021898627%2C30.9464231582151%5D%2C%5B-85.3955029571163%2C30.9462995850876%5D%2C%5B-85.3950820070203%2C30.9462981639837%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPolygon&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=Wetlands.ATTRIBUTE%2CWetlands.WETLAND_TYPE&returnGeometry=false&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 199.6584 449.56 229.668 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+12 0 obj
+<<
+/Annots [ 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R ] /Contents 33 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 
+  /Trans <<
+
+>> /Type /Page
+>>
+endobj
+13 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&zmethod=PREVIEW&AUCTIONDATE=08/25/2026)
+>> /Border [ 0 0 0 ] /Rect [ 50.64 449.56 74.652 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+14 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://qpublic.schneidercorp.com/Application.aspx?AppID=851&LayerID=15884&PageTypeID=4&KeyValue=02-2N-11-0083-00F0-0120)
+>> /Border [ 0 0 0 ] /Rect [ 80.5272 449.56 104.136 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+15 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query?where=CO_NO%3D42+AND+PARCELNO%3D%27022N11008300F00120%27&outFields=PARCELNO%2CPARCEL_ID%2CPARCEL_ID_%2CNO_LND_UNT%2CLND_SQFOOT%2CPHY_ADDR1%2CPHY_CITY%2CShape__Area&returnGeometry=true&outSR=4326&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 110.0112 449.56 144.8232 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+16 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Transportation_LargeScale/MapServer/2/query?where=1%3D1&geometry=-85.30741990949745%2C30.590085118818468%2C-85.30326427937455%2C30.593705418578732&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=NAME%2CBASENAME%2CMTFCC&returnGeometry=true&outSR=4326&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 150.6984 449.56 167.9064 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+17 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28/query?where=1%3D1&geometry=%7B%22rings%22%3A%5B%5B%5B-85.3048296199745%2C30.5920322653426%5D%2C%5B-85.3054777102479%2C30.5914420936692%5D%2C%5B-85.3058545688975%2C30.5917575737791%5D%2C%5B-85.3052057139512%2C30.592348443728%5D%2C%5B-85.3048296199745%2C30.5920322653426%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPolygon&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=FLD_ZONE%2CZONE_SUBTY%2CSFHA_TF&returnGeometry=false&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 173.7816 449.56 193.7832 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+18 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer/0/query?where=1%3D1&geometry=%7B%22rings%22%3A%5B%5B%5B-85.3048296199745%2C30.5920322653426%5D%2C%5B-85.3054777102479%2C30.5914420936692%5D%2C%5B-85.3058545688975%2C30.5917575737791%5D%2C%5B-85.3052057139512%2C30.592348443728%5D%2C%5B-85.3048296199745%2C30.5920322653426%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPolygon&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=Wetlands.ATTRIBUTE%2CWetlands.WETLAND_TYPE&returnGeometry=false&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 199.6584 449.56 229.668 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+19 0 obj
+<<
+/Annots [ 13 0 R 14 0 R 15 0 R 16 0 R 17 0 R 18 0 R ] /Contents 34 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 
+  /Trans <<
+
+>> /Type /Page
+>>
+endobj
+20 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&zmethod=PREVIEW&AUCTIONDATE=08/25/2026)
+>> /Border [ 0 0 0 ] /Rect [ 50.64 449.56 74.652 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+21 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://qpublic.schneidercorp.com/Application.aspx?AppID=851&LayerID=15884&PageTypeID=4&KeyValue=03-6N-13-0000-0210-0000)
+>> /Border [ 0 0 0 ] /Rect [ 80.5272 449.56 104.136 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+22 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query?where=CO_NO%3D42+AND+PARCELNO%3D%27036N13000002100000%27&outFields=PARCELNO%2CPARCEL_ID%2CPARCEL_ID_%2CNO_LND_UNT%2CLND_SQFOOT%2CPHY_ADDR1%2CPHY_CITY%2CShape__Area&returnGeometry=true&outSR=4326&f=json)
+>> /Border [ 0 0 0 ] /Rect [ 110.0112 449.56 144.8232 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+23 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Transportation_LargeScale/MapServer)
+>> /Border [ 0 0 0 ] /Rect [ 150.6984 449.56 167.9064 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+24 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28)
+>> /Border [ 0 0 0 ] /Rect [ 173.7816 449.56 193.7832 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+25 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer/0)
+>> /Border [ 0 0 0 ] /Rect [ 199.6584 449.56 229.668 458.2 ] /Subtype /Link /Type /Annot
+>>
+endobj
+26 0 obj
+<<
+/Annots [ 20 0 R 21 0 R 22 0 R 23 0 R 24 0 R 25 0 R ] /Contents 35 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 
+  /Trans <<
+
+>> /Type /Page
+>>
+endobj
+27 0 obj
+<<
+/Contents 36 0 R /MediaBox [ 0 0 612 792 ] /Parent 30 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+28 0 obj
+<<
+/PageMode /UseNone /Pages 30 0 R /Type /Catalog
+>>
+endobj
+29 0 obj
+<<
+/Author (\(anonymous\)) /CreationDate (D:20260821003457+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260821003457+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (Jackson County Property Fact Checker) /Trapped /False
+>>
+endobj
+30 0 obj
+<<
+/Count 6 /Kids [ 4 0 R 5 0 R 12 0 R 19 0 R 26 0 R 27 0 R ] /Type /Pages
+>>
+endobj
+31 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1435
+>>
+stream
+GatU2>Bed\&:Vs/R"p)tHa"t+ad9_!$1tT;$RrT4Gn`^kC42e]TUYoQ4-HiT9sSW^-37?EBJ/3:bpWuKrj)$!;ui7F]UU]a*:d<AJdBGIK5#f)jana\9Tp/]3fuN<G\&F_,qRqYe0"mN"\]OQ"B6N(KM:CcZ@pcId;.a4VLq[O&IFGJ#kTVo5UQ9N"PBj6^lFh*XuWAB6=.KAVJHF+ncWiHZd[L]_l@DD%O.9!i2iq_<B/IWJ1kg[>NsD9OFMl[Koc&FYnWA*,^J>E7Vt#e#M(!$mdiQ:R/#*eas05/ath25@i7&>CKCc'?i)EXk3JA(PCu;F>ZqTG0.ppWg(bOqV?(U!T\W-"!a$X$_D,R:V_OK416GFo(FmmuItJRAl,sB^=n!AW^SBKJjng9CbJh_JRK!GkX2W-WXPaWP_,EWThSh[:0F8o^PfPhJ\B[#e@6ViW)$_4=IPt7E]i2o5()a\up,2E-X1tEFIH8L_Js7NI*rV*'SnCSF>i"Z(ZaP;1;20b.UZk\lYaC4o$K0,EclmHsl9B<<]aq,hjUmFrRRUP6Ek(QQV>*"15!glGaqhR)Te3@s[GJ]#j6g<a?^IXGg1HCa5p+<?f7e[,reGE,O>I6(bG4QuGXm6SPii0m'&e8>b92qj7@l0h_f'JVdq;\.21cBuUj^IGAgt]]OA-@J[#kbEK1Pi.O9q%:)hc1+2??!N)/f>N!a.9XfJS6D.\*Y^\GE^?:?OX]Vgf3A+0G+uc*Khp)>j?'ck3]O:_G.]f7+R3`4-MK*qRjDiO-SC95-:icMputY$mT&WG8onAa,XE`:c0Dm3*duU3I_6*`;il.$ldGS[>iXl.XWk=ITct_T!co#g](jiZ3J34UW9jE!BZF>ZEpk@H@`=*U4Z:e$Fi%U"s,HfZDUZ(6"i<oGhK#:`K0#/aF,"5sNN\9FI-*'*(^Sd&f*.j\T^3[VcLrj#g'>niI;W<h!Tg_OYGXiNq+gVV^;j.%4mfC)'L+k1220V071;Z.2RFS\6+h^8%66gHe?@B^2HM716-P5c&Wcgph:Q]$ukJ=rjMmVp3^.fQ>ftY-I`^=TN\R:"&Y:f)P%-<PGtobNWiJSAOCBlg)%O2rBNFjCud7(f>^&4JqCfD9_H239*UOE,,.@?k+6Bdce7_,=>[8Jgq,`ip*-_!9Pm'/?"MK!E;2l)tc@qnL3'=CGZs=HKRulZ>E8A[p$1OD+`iMXhF<bSW.Xc6s6K"JSc[>CmkeCW%WL-FbQo=1k+._dr%i=!\ga[g6EgsVqf!4n?<H%F4:;hN@>oJ\]4bki-G./`o6'S6&@H7V-uT(2^Au/^FOg@-+#&YL]2ci('s4t_"$>saN3Gl0NRW\lN$D!&#_dk?0_VW`Z8PPl9-e1d.P4_pNXKdQ)W.riTW6)eA#"\`O`>8Xt@=%W6N-mO6VFWIfW1KW\O~>endstream
+endobj
+32 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 2121
+>>
+stream
+GauaA>Bed\&:i[0/*<OP::DT!f$0Pqd/_k,'N.9Hm8K#]Pa9nQX:=Ffhs\WF9JJK$ZWg20Q'#]K_l(o'2?aIQ2#X#i!T&doW^hUq(dA$97)6;Ch=8JA(W>i[bAi*C>V]+5O]'5c0Y4e#5mUp-i!p>#jreMrE'%tBE.=!cFgP&Ue;8U,A(a*Ml4k9Ea)<FMrh;'=\S%=FL9A$?T#8aC+4#L@b^mAc>,Z]A'CI6qC'cI/7'MXK0_$O6=VLoET;$S5VSC%D)iS-<Rh`n?84">pUAE18U4?6iJ&$&jh(A#L6TsF<Ui\jQc_;JlcYsTH_dbT`:%p4N>5)$X!VQ*[):ucUfhmr9U:kpfq=/REk-e:EQ).L'Ud/Ehrs0="ggO)u)5VLgPsT5M1*TZ'mES(GE8?5Y_Djie:uN+S?PS7ZT-[04W\p=NZS*eu.%!Iii5Ysih1sbQVu-lDk5J8t1I$CmP-";0C77DhOsjGsW"\r9f^In7;0+ItQg/iS:%cdER"^`;^'N4d&U8NSn#s@@dk"7[XbEAmTI*MQc"E4CU)8aq6A:S5&h=^6P<TH)PjAfbNfKogA\ga<nUn(R;9h<8,\+c$d,H,:E"MO2l@O9/G&=&&bN[7*`Dt>2[-kM"h1uAQTUe(ai<QbH'SltIWTPE/LU9u"U"r*uNnHFkh9khl6.g>+]$#7m6@G80)e6_+<162AQpZZW4H&17P-3"!Bp<3p/"8J/r[XYI6!,n7Mao'I*>p&Yl0+3c[HaAecc;/T:6=uB:6<"5=C=2PV\s*&C;&I#V8$7]3t8b:_$jf&@Zdd:g15dQ2u7,EKe'rLJltJ.cE_c-HA3["_c<Wmq5Pe!+^*(QIf/NQX],TVXKofNNg%PG$ZnU0kLa7Yg<(4t"%7,JfA+U2VHsWn6,gCCMZ2G'@>MOj_5H7r"8ChkJ%k\N"i2r$;\pq2810`m>P=^Y=j+[3/W31N4\P[L*No>Df7"MDQKUo,([M^2gsO["p/$Xg?4MZ11R&^J;RkB*>C6!o?S]qO\W_BEXa":t,Mf;3Y*SV(fC8cLIscUp*fV91LAfFW_nkC+E6u3;^$g+M$s1UT(\BJ0c2GUJ:#ROWU?U2=[1%Ga/->jLMNcZM8KrW<]hW&k"YU7RZa&Eddq.1(@;?8JX>i7/4d/;<@Y"=@cZc/PrB56lnD;2X/.DK'jB7Bane=B63I^W4H-1S)T%`DdY_Tqhmi_1+&8;W"G"IBVWZJhbQ`e5e6%83X;<2qR%N41Nn+E>HS'_,,>9%Dp6_O#QTV#Y.$Zo\)+2FE*/qk7^r+=Hm`lZd"GO+MUBgUuO6Dq3tSP-'7NhdWg;ck(ZUt`e-S$NIXp*G$0"PjegN7'j+NZWVcO+Ya<mGP6**'O#MT=Z<LGCDYO5q>dX.OY=YSlHd*$Wr,Ik3dNP7LOi]T==siVHW>a]"+Y,9FG"8au<g6(G#IXTECt7Bt=+,dnR;m[rZZZAl9>^Sf,,-D%fAXjDKUKXO7#,^bp,aJ'](FMDLcY0b[!(HG4Uo!6Ag*C4rl=CKKt:.)0V+^UkQt:*c62m1,`@gE_.*BTdA%k*dPuYENjf.`<_e``]1A.&tSa]sII>I#b<U/5t=oeudI3/*ci,F$"(0U&E>$Ole9^*psfgcLFm>`QalbP\0.kgM9'\;-qJq/.CC)E=U?CL93p%j8Q9#D>lb5k$']"dd.rJ1H2m0j:3K=dtD:r[$YLZ3r+NTDXZ?_/>$?dMe2jgjoETj-WL@ImbIeegHG@%7p7IqPSfF)/B2#p?-:/,>I^BeeI$q7$8.CufH_oc3OV_t$+&Bsh7lO=nJS3m:lN$#\jcEZVqB\"fX6a9=OuAPCec]t`3UCZCm#J'>J?<i[Hr1sZ7co<bLbNM'8k%7aCcX.>ohZP4h@5`^SBF$@18)>)^&s[&n;3^`W+gJLuW$LKXeQ[NpAHl^6h:Wn>#OsHsSoBc^O^\S1o)q'Nc<(Zo0t2?$<0o03"/[h'`Hk3tlC,g+7sBWtK2Vg+7p1q[fSXCR2j022JXoD&1"T?&)=F2+sXuLdorHL$<pmCLPpJK^%e1V(?JcLJKhJ:Po.J:OdK9dZ\FiE:8RDCJf7UPqd.m_YgbjjcjO3[5:*R90]3o\G-jlFAVB~>endstream
+endobj
+33 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1569
+>>
+stream
+Gatm;D0+\p&H88.Yqtdld$p\!Z7Obk'BO1n*WZcJR^QR@*93jMJB\t[S"&Z'mn0mF$#f(IO<C`.qs95a<tYUm?`&>5-,?]->kndFL[Y>3+9KD'oYZTj(W>hhF^-&lATLZ*aI"2hR,2)D+9[f./;FK39<b6[/6S&B#VHH`7tJ5d-I*25Ps>K3$4DZD^J$olW!$42R=XL6M@8AU>(2\hJQ)!P,gTL_^A/7)S3:_^%AO=iH'GJ,GVdZD5itG"09b'B&:T3"XjU>S[Y7GCj4'_Ld:35YD>$Kl]:)K[*=h[sMigm<TcRbdRa9@hgV_FKZ"lN,Ts1_J%a7lNF%a($qMCo^IXaDi)irlB&GDj[l98?%2HdV$5huPV$7Vo.!1+#,W%M(R4CWrf3H7$c23B9UnFi*39$F!m:+=1#Yt?`H\e8LH4Q0.t"1;F$(V],BTfPPcPolib&o8MpRh38HKdguX9TUquLe^*oQnWZTbZ[3gR]_\UL7<j3;K7t,LGVp=J7*N/V,=pan"N7LJ8mFVFW0Hp+H5%V=+dJU@Q7O$[rKY6U",(P8Ok:1B'Iu#"N"'Z*`V-?bu<1mBW^eS8a#=_gs9V[U-GtWiM(PQ!P'tud<_AAhZ70OP'`EiH7nncGs@/V3*GV$6!7EPg5NKiIbL%@<'MCBl0IEpIPHmjlI*"``-Hr/?sc(J_1;miLAtVb1HNMr[n&C^9?#>MOl5_G>A23ce24!_A#b/]]r*qFBmj;Fj"Q9Aq22!t_r?iYohfbK@jUm>fi"7S-e\N9E)tNIbc[Yk]&e-_+nXXcHQUQ*1Z:qW^&<u2W3!D6S_dmeF2Bn`7?JC.+m7PbG<fsL>[#)C!GoT/4H$?!+2U4tMA^W,n&7uP?:-l\s3H(YUiCEs5oI(,U/@K\4IonnHV">5=IDYg["$ndc8aOR_V7l(E%pNO_p=P:nB[Tok]:Z)nd!Xurk"q+@+Y'*N>o02RROP=%QCA)PXKf&hE[*945_K3qCTm&&8\LXOZZ)@LuK6jGR$ElId^&;rnq<0KM,ic.CVQ0c:"BuI=GgBJpqkriK%a[r:aKaVjer=-[K_!5aXbV00'?k2QWcL\P"i=.%MACBc6B/<-]Fb<ls]YbL[;<1DQ:65F/u]7F78J]khsY:Qr+bd'2hUQEKc7Je@2HmYGea!O":pCpe5SD>o8YoGo1*!RE+Pc0Gi_ArEW`$&3iD0r.!QruA<PA%(bV;j/M+n')SC;^G**a;%?He_*FZ]%aQNU.Ua.-7bCZ%*MSS<^uA0XbhhZ4@4q*Q+uV61RX9D4q%[k&&HXE.TBjbnXc]ope1.7D<[+l>,-b2).$5jWa\uL38R&/LDOd]+p&prC`B_)@3sYAKXk,hS5DBNgTDqOi+8L!.7JXh[g3X@Q8=1<G;8TW8_Fls6'Ak1KL9<IjF43LNd7gG"3(4,L[o]'i;rma0QTus'c2KlYfuV;D?`BOE7NP:=s1S0gMI)Wlpaes0pd5Yr'PT_e6>,Fq`(4OW[0m'R'Gd3?u512U>(=:#_KZ0?i^LVpni?[KFI`DJB/.3:&7d*:P$%d9Rt7JpHlCb%to!_HN~>endstream
+endobj
+34 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1577
+>>
+stream
+Gatm;=``Rl&:XAWkc/0oaHd^iV3-G'0LdrT"r8Z.js;;]fjP76<o@f)C4CVW7L*<RB.[U<[sIo:A%I#5(f:,ao,Z'VXoc-&(bcH9,;;\7"F]J<B4&u@m4)j45TF3P=5oDu>?NYo3D2V0U*L#68-s@APYHf\a;Obc"fe[jSI-%^8=M(O&oj`J,4M'naI]a=.kJl;3L\qm0SbB!AolmpgG$du7@^Jd^lQq,'f9?\_C>qWAJhPHB`cA'9XB",q#u@'&:Dtg2h3Jo&SBc:d%g(Z#._#8'DbudVqMWM\\u<Tl$uTs1)J3uk_8-X1O!?`HjWb]?[*QXX8V3J]ANC?UVWMIUN+o[iHbq,@5\RY,i$h^WBZGrOu1dNH\<KjQ"UmbZ,#@hfSF9u/;D3+a%Xul2FUtF1!YS'`E_LQ$nu[t90#27jZ'nlbbPJ$l+sF].#h26=f=KEc^VA0![fO[&1.Z;H0:>Q7d]Ad,9LnmQNmW1o5(I+EKs](1fFL,@%2&7>kL"hK,1-^`q?ZVEknIN@GI$U)b_%\_l'`LKmWLrND@!B>=P;EbH,R];bY$S_lRLRiG!'W[)R%s-e%,_*i>,Ad@^4pP8*b>O'ERZE4LqtGE8sjQ\#iB:W:%#mmge%`NpRH-u\ZBPHcI2Nkd</2C[DHdaun<_e^53FigmWl-cVW6s5Hh?oS!sU=p94?h*Rmp-h(;a!n==```tO0+rY[>?BOkX>NB0^6k:$<U]2'9=h[:>-T0fe9o4j<6jK\kmc']`P7\nVcS552`SeUB6t:lHcs_DZe5ekh$K`qg[3deBP>gk=F7Y3ND[+2e$b^/L#!'qlkWT-d"S!"+l"-D/T<"lqZGK6'6OrB]\eKm]GEAAfADOT.DD7>@e\dE,Yk*/i.a!::nh!]hDCX.CO8\ZG$15'2=uCILJBg4X28<Fo?D7DG@ro)HK4njog.EdCgB`kRe2WhE,rh?3n4]!0T28JaA?^]3\Ll:Q>iC#_CU-CB+RNE^1b?$KAX<$T%?%B#O)e">Fs*foMcsueG!%5`9:k2*<*SRhn*aC1g.fN1,^M#$\Ia@E1JGn?6SShjc=XD$^8]kq'u-Q:6kS4@M)E0\9nT[3miKrGscl9qr6mC*RnXq-_3IqPPAZ3eEhXK-;2"S?kccenNcqi$$_G4@ZuM$FS-0g_A<VV$ZAssI<aZEOWQ4+I#sP1(dKtqmS4nZ0_p:5Af@scRT$cV)6.58ZaaH^Wg[\pH+TY_1f^j*!ElZ9Q*X^9Ci-!DB5QZ-Bh'XU2=Yn84/;<W#P<I`E9A<:UI$:#&bhP_M;K#Nf#%@G=)*sR0uN<+%_IHD7QS253]8YDQ66e`enb`Cb[r0UQ%V/,;k-^TkUf:?$h+d)\5I?g"W)h`VTKWOPM6p6@8aPRY`\!A[:!>^'Zn*e%Yq^K(P1R\@R>@Mi,CUS%f)P<=N-i((9Dm;J=E-;$X@iP^)+lVhR@8$3dDVX8^,^[')teaoZaq-4[7)dMe^Fr-t]Qp;n,%#Zo(q`47Jn!]H=P0+8YB:0&60sI36Lk?3'm9Y.D<_%J0j,/5;0!:`,5_2J']1KTNAGL9pm[>"(<l~>endstream
+endobj
+35 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1520
+>>
+stream
+Gatm;D0+Dj&H88.YqpS__f^h\ag,_/T/^:`>&#IZmG*-336'(f!BW072k@K$Ik/W!-5af]c3s?Og1Od"]36q^prglo]E7k<#3Q'mN5OulQllHB,7%mohp.%U,kZO-^>j5[nB%%F?'r>d90ih-"ZRP8!`n5OO#XEfQZ.@RTR%O+Y:ssUn>HI6&6ChV*;j=Knp;t($HjtW7oOf&Xe7J+neH,d4db<`6]uA:^ic/1DP.AG#+I_If291`A18Ym0$@><r-+NVL"RuYZNfb'QS?ad5u46P"Ph_rO6CeqS8(,JVML:qdK-&!154k3oYOW'Zu56!:I/[\o)T)n[/\q/mWX,"d,6k3?9e3I*0#OjV002sI4;*pMHb_JW$9d5MR_Sb:-9"l6f\R/]fKbn(@rrc:l96^S5N$P?Xd8s&rL^W:tPGeiK)(fC9iFm3Dg\D_0&Ve%El)$Pl`>W"pX[NQul9FL8O]Yp[8UdEIBMpga60nMQ;DFdS()MK%8\C<qS)ZNu"Dj`q=C`[bg@5@GDU-)beio_l)O7(\d8;3rN`_>Sr1K/@2niN_<Xp%ku\)1-BDJL"7,+,j?MdLYKdq:\7`f=t+QO2oq9CNRmCuru-RPCJ$%LoMk23npV55EO+B+K0!9UG+$fJCM9&T7a5.i9A_(W\'%5<>aM&#,L-rRr&kqKi;Ph9s,*r*ZbH3'VKl8kNbO1M+9-/XCfT&STl_eY9r+fXl->X&^91Ye$tAM8@N!=o\7Bo,Zs<-)aaJQBO1(rXp-1X-;fspD9ULh-%!qjio\TlOpEuDtn0QZAIQM%=f)"&p@reh1@@U=pi<<N.q(BNAM!]^cLT$i\(7`I0f]N&Xm,NM]ENf=1bY7!'e.@9$Mg:K*ah\Ete3SplFUf2O*8B1g]!#RS*jsAl9b0;DBU]@Hna'jArY/\p%)\R8napGCq_OT\1]Y.i_@1<Rq)"#l-[]c0?'n$*ZJIj,C+nL"73Yrb:Ze"J9^\Z%6ue06qZ8s8T7cBI0FY+E`'O/d[[(aQ/3=T&2YI$6V9+$B!nW(64]nML,[Vq]@(sE:2Eb;c'!Q44D&Mslfdrn?IX')B0kaMILZm\?R5_X'$#ql\%F;;"BZlur[^ob?7s#L=d'E[kQEKbdJmkn?s)n]nMcjQ-L"gG82_:^G(nZESZ;JO]1tA[8a_)#,onE:la=`E7]XLR%Q:u?d=$/j8/9<FF/43DNN]qg!'98q^Q8pKHQD#j&l!S9Oc-+\Vk/g+a;)Rt^bs%?U(^K`]0RS@u0T?F)fM9p0Pla0!hQ.ah@rKjF@:Fu#;i7SW'f(dc:uC::gNA<;Lb7B#2"Ohk<e<$_WJ`Pq#.qSt(>p4)E%+5("a:4c9U72^-?h1`g8&PCi??>AC-bc='Zj]4LI9qa$UJc$0qg^7E&aWm$[0c,XQ"-E$C2\Fi6Cc&'tENCIOWVdps<d[ki?_[,VbX48c2M01G[!82Z5UB4B,O66nr3=*QG/c_[s\XY:nSf(NqFT97SYu``(^2@"Pk,ou&7<q[_d'1Of~>endstream
+endobj
+36 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1834
+>>
+stream
+Gau0D>BALZ&:WeDlsig=#iCWrV_e^NSE\.\REh<]@1/f1[\t`Eq=eMJ)ok2VEXE5=(pWZ"C;7Gqf*)CDY5P!T!+3`"(qJRN0V3k8O9!;Xi+h'EeK]&H3Um[%ck!f8^o-M<;$[\>HNaNQM$!0V&d4:`(raFSR\bPT?GeWY9SY2qg_7V$"=-7HJIf]>s)%gOAmTEqc"bfNW\T6I%Ne/>jkr.*%!P=hRF3U19P(&o%lY-.U.%XPc"-oHS4]'Qln94UJFQ,SZbna26K6")L\2[Y0o.m&n+#3#G/reY]*T@LV2R^1`,QGihnrBG#sRZbCoZqh@!E2O*k7%e^ZV*HIi.^-$M[4NqZN6@X`@HUW`J7YEXE?D=2i^Ek4]hKe5clQ)n4B&0uFOE/dsmdd)r'FOk><#k7Z:%_=V5u,[iNgd*tWsqI[Ei0/3<1G]/eX(S_H=J@cJWE%gro8A%/p*r.)7b<,2aoEW%rcBhjah#m"h':6WjMaQpr^a'4!a2<ZG%YnBN3&^[S)h)*4Hu%@ZKJl/1CBo5gr1NnBWHCLc5[jgW+ght%pNtH0P(XfXgtJf;DOl0l0K^6"@KdGEL8u8,^#NkuW2ZrB/Wl'A&XdIf3t0^ap:nRmgLA3.$T8Qd(#-%'c$k2mS\nc58mulDD59P@W(N]/l5=:3]:UgrA'+uP$p;F5I(Fp8;@C4s`=,k"R;%752.\)eMblq.aEVf7,/\VQoQ7Pp*q)&<mG6=;Wrg[6^>J)3K44SqAseKjMMKuBb5l'Z#_uBZba;a/9`?h+@'jIA&3q_'.9AO;FUZB;".hg'TYjh-dHINTE\q#31]*<]pfA6pH@'Tj5i<+^h\Fb3'km6>^tZe^m4h=8,s)2P23^"5S7)Qb#u,o8(6+h#4KieHQ:qS6HTs,'ePD/4(*N'JYWQ*uHQ/7QjR&W2"jtE\7W`7*OHMGK16I.M?O'/>s/Mk.',ZVS]r(7sGA>;k$!p,^AU-2c4<9ZLMmpr\JC#>.hcEeH.6#od%F->+E/Y7F(7Zsb/ufPC_[e5&'Bk$g60hg'ETlV3C)hgKg>tjbN.dGK@*,c@a*Sb^"2sWa<OcYV"C'@naZ-tCZV"%GeJaRrO>4sCXPUglYbVW,[V"3!0KQ5*)@YsOr*t:t?'KDBqn0D#3'cU9&pMkon?fColq-s5[(iCe=R_Jh$VJulETV`IZmp?YG7(Dt))k1UKqY:)a`Gq90K?9$7U*-HqS^gSHa;*TmnL5Y_]5kc9UnC@9oWK2B?aC^(C)s5jt:)r$fH<U16)g)=LF\iXoJBJF^ebX`kNTY'$";q?l(h>$koBmh[W`o5*hb211,6jp!Se$$7ih:3#b(C)]RN`YHY"(#L>fMCl*='n4^44Q=qWJcU>B]M73A4-JIRMBY480Alic2mHe&??*-],T5R;E[3jRM]-Z-19hKfgA^52.FAEs2YsI-kR]k&eq^p-mVa3T][iNdVVa5bn%B;p7Tll<pKk\8!#(l#C^YXW#@RIoTfl$15Y*mDBq"2sj_HiKJU90nu9'Y(2W?mV.r],b(cK?NLGR9'\frS+j;PpZI`,):gJK+J*-FWAc'eJ=T=CBE1Q"ZWnr2:;_1S-M.F=L6/E??5Ic2+E]R`\IOADjpO_.q4aFF#_EkBP5R=m6RD"aVW":e\BNY*^\Cd?U$[rf.lK"FJ*VAhJr8H<DF2gqTMV@^s,%_n;:6oonX/p3KJI+E3M[Jp/F-`\$h#4^GGq>[C]@5@37(I'TV#24pS=@<D0]oDSCV&g#(01nRS5Y,+iCaAo2G>Y9?<PLcsLi<%Y`+Th@33g#>[USU;G,;6TVC29'%1tj+sp,Si@+1Zk_h>~>endstream
+endobj
+xref
+0 37
+0000000000 65535 f 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000516 00000 n 
+0000000711 00000 n 
+0000000949 00000 n 
+0000001214 00000 n 
+0000001679 00000 n 
+0000002186 00000 n 
+0000003205 00000 n 
+0000004256 00000 n 
+0000004502 00000 n 
+0000004741 00000 n 
+0000005007 00000 n 
+0000005473 00000 n 
+0000005981 00000 n 
+0000006680 00000 n 
+0000007411 00000 n 
+0000007661 00000 n 
+0000007900 00000 n 
+0000008166 00000 n 
+0000008632 00000 n 
+0000008877 00000 n 
+0000009095 00000 n 
+0000009334 00000 n 
+0000009584 00000 n 
+0000009780 00000 n 
+0000009850 00000 n 
+0000010154 00000 n 
+0000010248 00000 n 
+0000011775 00000 n 
+0000013988 00000 n 
+0000015649 00000 n 
+0000017318 00000 n 
+0000018930 00000 n 
+trailer
+<<
+/ID 
+[<081a07accfb497458123ec3616847ed8><081a07accfb497458123ec3616847ed8>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 29 0 R
+/Root 28 0 R
+/Size 37
+>>
+startxref
+20856
+%%EOF
