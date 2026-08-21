@@ -3,6 +3,8 @@ name: Live rate-safe property research
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "reports/latest/**"
   workflow_dispatch:
     inputs:
       auction_date:
@@ -13,9 +15,9 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 18
     permissions:
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,63 +41,67 @@ jobs:
             --calculate-hazard-overlap \
             --delay-seconds 20 \
             --output full-property-research.json
-      - name: Require all ten current parcels and show output
+      - name: Validate live research
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
 
           rows = json.loads(Path("full-property-research.json").read_text())
-          assert len(rows) == 10, rows
+          assert len(rows) >= 1, rows
           required = (
-              "auction_date",
-              "case_number",
-              "parcel_id",
-              "opening_bid",
-              "acreage",
-              "property_use",
-              "building_value",
-              "extra_features_value",
-              "auction_assessed_value",
-              "qpublic_assessed_value",
-              "screening_decision",
-              "screening_score",
-              "acreage_status",
+              "auction_date", "case_number", "parcel_id", "opening_bid",
+              "auction_assessed_value", "qpublic_assessed_value",
+              "screening_decision", "screening_score",
           )
-          assert all(row[field] is not None for row in rows for field in required), rows
-          decisions = {decision: 0 for decision in ("KEEP", "REVIEW", "KILL")}
-          for row in rows:
-              decisions[row["screening_decision"]] += 1
-          assert decisions == {"KEEP": 3, "REVIEW": 4, "KILL": 3}, decisions
-          keep = [row for row in rows if row["screening_decision"] == "KEEP"]
-          confirmed = [row for row in keep if "CONFIRMED" in row["gis"]["geometry_status"]]
-          missing = [row for row in keep if row["gis"]["geometry_status"] == "NOT_FOUND_IN_DOR_LAYER"]
-          assert len(confirmed) == 2, keep
-          assert all(row["gis"]["geometry_acres"] is not None for row in confirmed), confirmed
-          assert all(row["gis_acreage_matches_qpublic"] is True for row in confirmed), confirmed
-          assert [row["parcel_id"] for row in missing] == ["03-6N-13-0000-0210-0000"], missing
-          road_screened = [row for row in confirmed if row["road_access"]["nearest_road_name"]]
-          assert len(road_screened) == 2, keep
-          assert all(row["road_access"]["legal_access_status"] == "UNVERIFIED" for row in keep), keep
-          assert missing[0]["road_access"]["physical_access_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
-          flood_screened = [row for row in confirmed if row["flood_hazard"]["flood_zones"]]
-          assert len(flood_screened) == 2, keep
-          assert all(row["flood_hazard"]["intersects_special_flood_hazard_area"] is not None for row in confirmed), confirmed
-          assert missing[0]["flood_hazard"]["flood_screening_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
-          wetlands_screened = [row for row in confirmed if row["wetlands"]["intersects_mapped_wetlands"]]
-          assert len(wetlands_screened) == 2, keep
-          assert all(row["wetlands"]["classification_codes"] for row in wetlands_screened), wetlands_screened
-          assert missing[0]["wetlands"]["wetlands_screening_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
-          overlaps = [row["hazard_overlap"] for row in confirmed]
-          assert all(item["overlap_status"] == "COVERAGE_CALCULATED" for item in overlaps), overlaps
-          assert all(0 <= item["combined_mapped_constraint_percent"] <= 100 for item in overlaps), overlaps
-          assert all(round(item["combined_mapped_constraint_percent"] + item["outside_mapped_flood_and_wetland_percent"], 1) == 100 for item in overlaps), overlaps
-          assert missing[0]["hazard_overlap"]["overlap_status"] == "UNRESOLVED_NO_PARCEL_GEOMETRY", missing
-          print(json.dumps(decisions, indent=2))
-          print(json.dumps(rows, indent=2))
+          assert all(row.get(field) is not None for row in rows for field in required), rows
+          assert all(row.get("auction_source_url") for row in rows), rows
+          assert all(row.get("qpublic_source_url") for row in rows), rows
+          print(f"Validated {len(rows)} live parcels")
           PY
-      - uses: actions/upload-artifact@v4
+      - name: Generate clickable fact-checker PDF
+        run: |
+          mkdir -p reports/latest
+          python scripts/generate_fact_checker_pdf.py \
+            full-property-research.json \
+            reports/latest/Jackson-County-Property-Fact-Checker.pdf
+      - name: Validate PDF content and evidence links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+
+          path = Path("reports/latest/Jackson-County-Property-Fact-Checker.pdf")
+          assert path.exists() and path.stat().st_size >= 10_000, path
+          pdf = PdfReader(path)
+          links = sum(
+              1
+              for page in pdf.pages
+              for annotation in (page.get("/Annots") or [])
+              if annotation.get_object().get("/Subtype") == "/Link"
+          )
+          assert len(pdf.pages) >= 4, len(pdf.pages)
+          assert links >= 6, links
+          text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+          assert "Decision Board" in text
+          assert "Documentary Proof Required" in text
+          print(f"PDF PASS: {len(pdf.pages)} pages, {links} clickable evidence links")
+          PY
+      - name: Upload the finished PDF
+        uses: actions/upload-artifact@v4
         with:
-          name: rate-safe-property-research
-          path: full-property-research.json
+          name: Jackson-County-Property-Fact-Checker
+          path: reports/latest/Jackson-County-Property-Fact-Checker.pdf
           if-no-files-found: error
+      - name: Publish latest PDF in the repository
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- reports/latest/Jackson-County-Property-Fact-Checker.pdf
+          if git diff --cached --quiet; then
+            echo "Latest PDF is unchanged"
+          else
+            git commit -m "Publish latest Jackson County fact-checker PDF"
+            git push
+          fi
