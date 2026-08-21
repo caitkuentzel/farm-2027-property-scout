@@ -13,6 +13,7 @@ authors = [{ name = "Cait Kuentzel" }]
 dependencies = [
   "beautifulsoup4>=4.12",
   "playwright>=1.46",
+  "reportlab>=4.2",
   "shapely>=2.0",
 ]
 
@@ -21,6 +22,7 @@ farm2027-scout = "farm2027_scout.cli:main"
 
 [project.optional-dependencies]
 dev = [
+  "pypdf>=5.0",
   "pytest>=8.0",
   "ruff>=0.6",
 ]
